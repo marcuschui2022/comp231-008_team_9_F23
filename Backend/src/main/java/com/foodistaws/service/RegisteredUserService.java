@@ -47,7 +47,7 @@ public class RegisteredUserService {
     }
 
     public RegisteredUser login(LoginUser loginUser){
-        return repository.findRegisteredUserByEmailAndPasswd(loginUser.getEmail(), loginUser.getPassword())
+        return repository.findRegisteredUserByUserNameAndPasswd(loginUser.getUsername(), loginUser.getPassword())
                 .orElseThrow(UserLoginException::new);
     }
 }
