@@ -3,6 +3,7 @@ package com.foodistaws.service;
 import com.foodistaws.entity.LoginUser;
 import com.foodistaws.entity.RegisteredUser;
 import com.foodistaws.exception.RegisteredUserNotFoundException;
+import com.foodistaws.exception.UserLoginException;
 import com.foodistaws.repository.RegisteredUserRepository;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,6 @@ public class RegisteredUserService {
 
     public RegisteredUser login(LoginUser loginUser){
         return repository.findRegisteredUserByEmailAndPasswd(loginUser.getEmail(), loginUser.getPassword())
-                .orElseThrow(() -> new RegisteredUserNotFoundException("Wrong Id or Password." ));
+                .orElseThrow(UserLoginException::new);
     }
 }
