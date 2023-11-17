@@ -1,5 +1,6 @@
 package com.foodistaws.service;
 
+import com.foodistaws.entity.LoginUser;
 import com.foodistaws.entity.RegisteredUser;
 import com.foodistaws.exception.RegisteredUserNotFoundException;
 import com.foodistaws.repository.RegisteredUserRepository;
@@ -42,5 +43,10 @@ public class RegisteredUserService {
 
     public void delete(String id){
         repository.deleteById(id);
+    }
+
+    public RegisteredUser login(LoginUser loginUser){
+        return repository.findRegisteredUserByEmailAndPasswd(loginUser.getEmail(), loginUser.getPassword())
+                .orElseThrow(() -> new RegisteredUserNotFoundException("Wrong Id or Password." ));
     }
 }
