@@ -1,5 +1,6 @@
 package com.foodistaws.controller;
 
+import com.foodistaws.entity.LoginUser;
 import com.foodistaws.entity.RegisteredUser;
 import com.foodistaws.service.RegisteredUserService;
 import org.springframework.web.bind.annotation.*;
@@ -39,5 +40,10 @@ public class RegisteredUserController {
     @DeleteMapping("/{id}")
     void deleteRegisteredUser(@PathVariable String id){
         registeredUserService.delete(id);
+    }
+
+    @PostMapping("/login")
+    RegisteredUser loginRegisteredUser(@RequestBody LoginUser loginUser){
+        return registeredUserService.login(loginUser);
     }
 }
