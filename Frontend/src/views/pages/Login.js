@@ -69,7 +69,7 @@ class Login extends React.Component {
                           </InputGroup>
                         </FormGroup>
 
-                        <PasswordInput />
+                        <PasswordInput passwordValue={null}/>
 
                         <div className="custom-control custom-control-alternative custom-checkbox">
                           <input
