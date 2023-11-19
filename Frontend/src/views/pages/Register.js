@@ -24,6 +24,26 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 import PasswordInput from "components/PasswordInput";
 
 class Register extends React.Component {
+  state = {
+    username: "",
+    name: "",
+    password: "",
+    confirmPassword: "",
+    email: "",
+    role: "",
+  };
+
+  changeFormState = (attr, value) => {
+    console.log(attr + " " + value)
+    this.setState({
+      [attr]: value
+    });
+  };
+
+  submitForm() {
+    console.log(this.state)
+  }
+
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -45,9 +65,9 @@ class Register extends React.Component {
                       </div>
                       <Form role="form">
                         <FormGroup>
-                          <InputGroup className="input-group-alternative mb-3">
+                          <InputGroup className="input-group-alternative mb-3" onChange={input => this.changeFormState("username", input.target.value)}>
                             <InputGroupAddon addonType="prepend">
-                              <InputGroupText>
+                              <InputGroupText  >
                                 <i className="fa fa-user" />
                               </InputGroupText>
                             </InputGroupAddon>
@@ -56,7 +76,18 @@ class Register extends React.Component {
                         </FormGroup>
 
                         <FormGroup>
-                          <InputGroup className="input-group-alternative mb-3">
+                          <InputGroup className="input-group-alternative mb-3" onChange={input => this.changeFormState("name", input.target.value)}>
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText  >
+                                <i class="fa fa-address-book" />
+                              </InputGroupText>
+                            </InputGroupAddon>
+                            <Input placeholder="Name" type="text" />
+                          </InputGroup>
+                        </FormGroup>
+
+                        <FormGroup>
+                          <InputGroup className="input-group-alternative mb-3" onChange={input => this.changeFormState("email", input.target.value)}>
                             <InputGroupAddon addonType="prepend">
                               <InputGroupText>
                                 <i className="ni ni-email-83" />
@@ -66,9 +97,23 @@ class Register extends React.Component {
                           </InputGroup>
                         </FormGroup>
 
-                        <PasswordInput/>
+                        <PasswordInput passwordValue={value => this.changeFormState("password", value)} />
 
-                        <PasswordInput text={"Confirm Passwords"}/>
+                        <PasswordInput text="Confirm Password" passwordValue={value => this.changeFormState("confirmPassword", value)} />
+
+                        <FormGroup className="mb-3">
+                          <Input
+                            name="select"
+                            type="select"
+                            placeholder="Role"
+                            onChange={input => this.changeFormState("role", input.target.value)}
+                          >
+                            <option hidden>Please select Role</option>
+                            <option value="1">Blogger</option>
+                            <option value="2">Customer</option>
+                            <option value="3">Advertiser</option>
+                          </Input>
+                        </FormGroup>
 
                         <Row className="my-4">
                           <Col xs="12">
@@ -100,6 +145,7 @@ class Register extends React.Component {
                             className="mt-4"
                             color="primary"
                             type="button"
+                            onClick={() => this.submitForm()}
                           >
                             Create account
                           </Button>

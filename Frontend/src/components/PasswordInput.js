@@ -28,6 +28,7 @@ class PasswordInput extends React.Component {
             </InputGroupText>
           </InputGroupAddon>
           <Input
+            onChange={input => { this.props.passwordValue(input.target.value) }}
             placeholder={!!this.props.text ? this.props.text : "Passwords"}
             type={this.state.passwordState}
             autoComplete="off"
