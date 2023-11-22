@@ -1,6 +1,6 @@
 
 import React from "react";
-
+import axios from 'axios';
 // reactstrap components
 import {
   Button,
@@ -24,10 +24,32 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 import PasswordInput from "components/PasswordInput";
 import { Link } from "react-router-dom";
 
+
+async function loginUser(credentials) {
+
+  return axios({
+    method: 'post',
+    url: 'http://localhost:8080/api/users/login',
+    headers: {
+      Accept: "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      crossdomain: true 
+    },
+    data: credentials
+  }).then(function (response) {
+    console.log(response);
+  }).catch(function (error) {
+    console.log(error);
+  });
+}
+
 class Login extends React.Component {
   state = {
     passwordState: "password",
     collapseOpen: false,
+    username: "",
+    password: "",
   };
 
   onChangePasswordState = () => {
@@ -41,6 +63,23 @@ class Login extends React.Component {
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
   }
+
+  changeFormState = (attr, value) => {
+    this.setState({
+      [attr]: value
+    });
+  };
+
+  async handleSubmit(e) {
+    e.preventDefault();
+
+    const token = await loginUser({
+      username: this.state.username,
+      password: this.state.password
+    });
+    // setToken(token);
+  }
+
   render() {
     return (
       <>
@@ -59,17 +98,17 @@ class Login extends React.Component {
                       <Form role="form">
 
                         <FormGroup className="mb-3">
-                          <InputGroup className="input-group-alternative">
+                          <InputGroup className="input-group-alternative" onChange={input => this.changeFormState("username", input.target.value)}>
                             <InputGroupAddon addonType="prepend">
-                              <InputGroupText>
-                                <i className="ni ni-email-83" />
+                              <InputGroupText  >
+                                <i className="fa fa-user" />
                               </InputGroupText>
                             </InputGroupAddon>
-                            <Input placeholder="Email" type="email" />
+                            <Input placeholder="Username" type="text" />
                           </InputGroup>
                         </FormGroup>
 
-                        <PasswordInput passwordValue={null}/>
+                        <PasswordInput passwordValue={value => this.changeFormState("password", value)} />
 
                         <div className="custom-control custom-control-alternative custom-checkbox">
                           <input
@@ -89,6 +128,8 @@ class Login extends React.Component {
                             className="my-4"
                             color="primary"
                             type="button"
+                            onClick={(e) => this.handleSubmit(e)}
+
                           >
                             Sign in
                           </Button>
