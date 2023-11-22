@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 // JavaScript plugin that hides or shows a component based on your scroll
 import Headroom from "headroom.js";
@@ -49,6 +49,11 @@ class HeaderNavbar extends React.Component {
   };
 
   render() {
+
+    // if(!token) {
+    //   // return <Login setToken={setToken} />
+    // }
+
     return (
       <>
         <header className="header-global">

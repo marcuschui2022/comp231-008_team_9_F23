@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from 'react';
 import axios from 'axios';
 // reactstrap components
 import {
@@ -26,7 +26,6 @@ import { Link } from "react-router-dom";
 
 
 async function loginUser(credentials) {
-
   return axios({
     method: 'post',
     url: 'http://localhost:8080/api/users/login',
@@ -39,6 +38,7 @@ async function loginUser(credentials) {
     data: credentials
   }).then(function (response) {
     console.log(response);
+    return response;
   }).catch(function (error) {
     console.log(error);
   });
@@ -51,6 +51,8 @@ class Login extends React.Component {
     username: "",
     password: "",
   };
+
+  
 
   onChangePasswordState = () => {
     this.setState({
@@ -71,8 +73,8 @@ class Login extends React.Component {
   };
 
   async handleSubmit(e) {
-    e.preventDefault();
-
+    e.preventDefault();  
+    
     const token = await loginUser({
       username: this.state.username,
       password: this.state.password
@@ -81,6 +83,7 @@ class Login extends React.Component {
   }
 
   render() {
+
     return (
       <>
         <Navbar />
