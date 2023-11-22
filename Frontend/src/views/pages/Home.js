@@ -27,6 +27,7 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 // index page sections
 import Download from "../IndexSections/Download.js";
 import Navbar from "components/Navbars/Navbar.js";
+import { Link } from "react-router-dom";
 
 class Landing extends React.Component {
   state = {};
@@ -35,7 +36,76 @@ class Landing extends React.Component {
   //   document.scrollingElement.scrollTop = 0;
   //   this.refs.main.scrollTop = 0;
   // }
+
   render() {
+    let postArray = [
+      {
+        id: 1,
+        tags: ["Spices", "Culinary"],
+        postImg: "grill.png",
+        title: "Grill Hack: How To Grill Fish Over Citrus",
+        text: "If you’re ready to add some zest to your regular grilling routine, grilling fish over citrus is a fast and easy option to add to your repertoire.",
+        posterIcon: "Blogger1.png",
+        posterName: "Dianne Russell",
+        postDate: "10 August 2023",
+        postPeriod: "6 min"
+      },
+      {
+        id: 2,
+        tags: ["Organic", "Fresh Produce"],
+        postImg: "baking.jpg",
+        title: "Adapting to the latest bakery trends",
+        text: "BakeAway’s Doug Hall explains how the bake-at-home manufacturer has adapted its product range to suit consumer needs.",
+        posterIcon: "Blogger2.jpg",
+        posterName: "Kathryn Murphy",
+        postDate: "10 July 2023",
+        postPeriod: "8 min"
+      },
+      {
+        id: 3,
+        tags: ["International Recipes", "World Cuisine"],
+        postImg: "Marinate.png",
+        title: "Marinade Myths And How To Add Flavor More Effectively",
+        text: "Most marinades are liquids that foods swim in before cooking. But marinades themselves are bathed in myth and mystery.",
+        posterIcon: "Blogger3.jpg",
+        posterName: "Darrell Steward",
+        postDate: "01 October 2023",
+        postPeriod: "5 min"
+      },
+      {
+        id: 4,
+        tags: ["Veganism", "Plant-Based Diet"],
+        postImg: "BakingSoda.png",
+        title: "How Baking Soda Really Works",
+        text: "The funny thing about baking soda is that there are approximately a gazillion uses for it besides the singular usage spelled out in its very name.",
+        posterIcon: "Blogger4.jpg",
+        posterName: "Mark Smith",
+        postDate: "11 November 2023",
+        postPeriod: "6 min"
+      },
+      {
+        id: 5,
+        tags: ["Culinary", "Creative Cooking"],
+        postImg: "Bread.png",
+        title: "Break Up With Your Toaster, Pan-Fry Your Bread Instead",
+        text: "Slices crisped in oil add a whole new dimension to your bread-based meals—which, with toast this good, is basically every meal.",
+        posterIcon: "Blogger5.png",
+        posterName: "Melissa Ricks",
+        postDate: "07 January 2023",
+        postPeriod: "8 min"
+      },
+      {
+        id: 6,
+        tags: ["Healthy Eating", "Green Living"],
+        postImg: "Pan.png",
+        title: "The Best Nonstick Pans, Tested and Reviewed",
+        text: "If cooking were a video game, using nonstick pans would be like playing on easy mode",
+        posterIcon: "Blogger6.png",
+        posterName: "Dianne Steward",
+        postDate: "23 October 2023",
+        postPeriod: "5 min"
+      }
+    ];
     return (
       <>
         <Navbar className="" />
@@ -49,187 +119,60 @@ class Landing extends React.Component {
           </section>
           <section className="pb-3 pt-3">
             <div className="container pb-5 pt-5">
-              <h2 className="h5 text-primary">Latest Articles</h2>
-              <h3 className="h1 text-dark">Christmas Food Inspiration ...</h3>
-              <p className="lead mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat sem ac elit rutrum
-                rhoncus. Donec a lacinia metus. Morbi volutpat interdum sem, vitae aliquam odio tempor blandit. </p>
+              <h2 class="h5 text-primary">Latest Articles</h2>
+              <h3 class="h1 text-dark">Feast of Flavors</h3>
+              <p class="lead mb-4">Welcome to Foodista! The Feast of Flavors and Culinary Adventure beyond the ordinary. We are a food blog
+                where every recipe tells a story and every dish takes you on a journey. We explore the uncharted territories of taste,
+                bringing you a blend of classic favorites with a twist and exotic dishes from corners of the globe you've yet to discover.
+              </p>
               <div className="gy-4 row">
                 <div className="col-lg-8 col-xl-9">
                   <div className="gy-4 mb-5 row">
-                    <div className="col-md-6">
-                      <div className="card h-100">
-                        <a href="#" className="d-block">
-                          <img src={require("assets/img/content/pics/pic-1508672019048-805c876b67e2.jpeg")} className="card-img-top img-fluid" alt="..." width="700" height="480" />
-                        </a>
-                        <div className="card-body">
-                          <div className="fw-bold mb-1 text-primary">
-                            <a href="#" className="link-primary text-decoration-none">Design</a>,
-                            <a href="#" className="link-primary text-decoration-none">Resources</a>
-                          </div>
-                          <a href="#" className="link-dark text-decoration-none">
-                            <h3 className="card-title h4">Relaxing and observing the mountain reflection in a lake</h3>
-                          </a>
-                          <p className="card-text">
-                            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
-                          </p>
-                        </div>
-                        <div className="align-items-center card-footer d-flex justify-assets/content-between py-3 small">
-                          <a href="#" className="align-items-center d-flex link-dark text-decoration-none">
-                            <img src={require("assets/img/content/pics/pic-1537151625747-768eb6cf92b2.jpeg")} className="me-2 rounded-circle" width="48" height="48" alt="..." />
-                            <div>
-                              <h4 className="h6 mb-0">Dianne Russell</h4>
-                              <p className="mb-0">10 August 2020</p>
-                            </div>
-                          </a>
-                          <span>6 min</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="card h-100">
-                        <a href="#" className="d-block">
-                          <img src={require("assets/img/content/pics/pic-1508672019048-805c876b67e2.jpeg")} className="card-img-top img-fluid" alt="..." width="700" height="480" />
-                        </a>
-                        <div className="card-body">
-                          <div className="fw-bold mb-1 text-primary">
-                            <a href="#" className="link-primary text-decoration-none">Business</a>,
-                            <a href="#" className="link-primary text-decoration-none">Inspiration</a>
-                          </div>
-                          <a href="#" className="link-dark text-decoration-none">
-                            <h3 className="card-title h4">How to enjoy running your business?</h3>
-                          </a>
-                          <p className="card-text">
-                            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
-                          </p>
-                        </div>
-                        <div className="align-items-center card-footer d-flex justify-assets/content-between py-3 small">
-                          <a href="#" className="align-items-center d-flex link-dark text-decoration-none">
-                            <img src={require("assets/img/content/pics/pic-1574158622682-e40e69881006.jpeg")} className="me-2 rounded-circle" width="48" height="48" alt="..." />
-                            <div>
-                              <h4 className="h6 mb-0">Kathryn Murphy</h4>
-                              <p className="mb-0 ">10 August 2020</p>
-                            </div>
-                          </a>
-                          <span>8 min</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="card h-100">
-                        <a href="#" className="d-block">
-                          <img src={require("assets/img/content/pics/pic-1471506480208-91b3a4cc78be.jpeg")} className="card-img-top img-fluid" alt="..." width="700" height="480" />
-                        </a>
-                        <div className="card-body">
-                          <div className="fw-bold mb-1 text-primary">
-                            <a href="#" className="link-primary text-decoration-none">Proramming</a>,
-                            <a href="#" className="link-primary text-decoration-none">Tech</a>
-                          </div>
-                          <a href="#" className="link-dark text-decoration-none">
-                            <h3 className="card-title h4">How to notice colors when cycling over a mountain pass?</h3>
-                          </a>
-                          <p className="card-text">
-                            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
-                          </p>
-                        </div>
-                        <div className="align-items-center card-footer d-flex justify-assets/content-between py-3 small">
-                          <a href="#" className="align-items-center d-flex link-dark text-decoration-none">
-                            <img src={require("assets/img/content/pics/pic-1517101724602-c257fe568157.jpeg")} className="me-2 rounded-circle" width="48" height="48" alt="..." />
-                            <div>
-                              <h4 className="h6 mb-0">Darrell Steward</h4>
-                              <p className="mb-0 ">10 August 2020</p>
-                            </div>
-                          </a>
-                          <span>5 min</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="card h-100">
-                        <a href="#" className="d-block">
-                          <img src={require("assets/img/content/pics/pic-1508672019048-805c876b67e2.jpeg")} className="card-img-top img-fluid" alt="..." width="700" height="480" />
-                        </a>
-                        <div className="card-body">
-                          <div className="fw-bold mb-1 text-primary">
-                            <a href="#" className="link-primary text-decoration-none">Design</a>,
-                            <a href="#" className="link-primary text-decoration-none">Resources</a>
-                          </div>
-                          <a href="#" className="link-dark text-decoration-none">
-                            <h3 className="card-title h4">Relaxing and observing the mountain reflection in a lake</h3>
-                          </a>
-                          <p className="card-text">
-                            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
-                          </p>
-                        </div>
-                        <div className="align-items-center card-footer d-flex justify-assets/content-between py-3 small">
-                          <a href="#" className="align-items-center d-flex link-dark text-decoration-none">
-                            <img src={require("assets/img/content/pics/pic-1537151625747-768eb6cf92b2.jpeg")} className="me-2 rounded-circle" width="48" height="48" alt="..." />
-                            <div>
-                              <h4 className="h6 mb-0">Dianne Russell</h4>
-                              <p className="mb-0 ">10 August 2020</p>
-                            </div>
-                          </a>
-                          <span>6 min</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="card h-100">
-                        <a href="#" className="d-block">
-                          <img src={require("assets/img/content/pics/pic-1499363536502-87642509e31b.jpeg")} className="card-img-top img-fluid" alt="..." width="700" height="480" />
-                        </a>
-                        <div className="card-body">
-                          <div className="fw-bold mb-1 text-primary">
-                            <a href="#" className="link-primary text-decoration-none">Business</a>,
-                            <a href="#" className="link-primary text-decoration-none">Inspiration</a>
-                          </div>
-                          <a href="#" className="link-dark text-decoration-none">
-                            <h3 className="card-title h4">How to enjoy running your business?</h3>
-                          </a>
-                          <p className="card-text">
-                            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
-                          </p>
-                        </div>
-                        <div className="align-items-center card-footer d-flex justify-assets/content-between py-3 small">
-                          <a href="#" className="align-items-center d-flex link-dark text-decoration-none">
-                            <img src={require("assets/img/content/pics/pic-1574158622682-e40e69881006.jpeg")} className="me-2 rounded-circle" width="48" height="48" alt="..." />
-                            <div>
-                              <h4 className="h6 mb-0">Kathryn Murphy</h4>
-                              <p className="mb-0 ">10 August 2020</p>
-                            </div>
-                          </a>
-                          <span>8 min</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="card h-100">
-                        <a href="#" className="d-block">
-                          <img src={require("assets/img/content/pics/pic-1471506480208-91b3a4cc78be.jpeg")}  className="card-img-top img-fluid" alt="..." width="700" height="480" />
-                        </a>
-                        <div className="card-body">
-                          <div className="fw-bold mb-1 text-primary">
-                            <a href="#" className="link-primary text-decoration-none">Proramming</a>,
-                            <a href="#" className="link-primary text-decoration-none">Tech</a>
-                          </div>
-                          <a href="#" className="link-dark text-decoration-none">
-                            <h3 className="card-title h4">How to notice colors when cycling over a mountain pass?</h3>
-                          </a>
-                          <p className="card-text">
-                            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
-                          </p>
-                        </div>
-                        <div className="align-items-center card-footer d-flex justify-assets/content-between py-3 small">
-                          <a href="#" className="align-items-center d-flex link-dark text-decoration-none">
-                            <img src={require("assets/img/content/pics/pic-1517101724602-c257fe568157.jpeg")} className="me-2 rounded-circle" width="48" height="48" alt="..." />
-                            <div>
-                              <h4 className="h6 mb-0">Darrell Steward</h4>
-                              <p className="mb-0 ">10 August 2020</p>
-                            </div>
-                          </a>
-                          <span>5 min</span>
-                        </div>
-                      </div>
-                    </div>
+                    {
+                      (() => {
+                        let container = [];
+                        postArray.forEach((val, index) => {
+                          container.push(
+                            <div className="col-md-6">
+                              <div className="card h-100">
+                                <Link to={`posts/${val.id}`} tag={Link}>
+                                  <a href="#" className="d-block">
+                                    <img src={require(`assets/img/content/pics/${val.postImg}`)} className="card-img-top img-fluid" alt="..." width="700" height="480" />
+                                  </a>
+                                </Link>
+                                <div className="card-body">
+                                  <div className="fw-bold mb-1 text-primary">
+                                    {
+                                      val.tags.map((tag, index) => {
+                                        let connectStr = index + 1 < val.tags.length ? ", " : "";
+                                        return (<a href="#" className="link-primary text-decoration-none">{tag + connectStr}</a>)
+                                      })
+                                    }
+                                  </div>
+                                  <a href="#" className="link-dark text-decoration-none">
+                                    <h3 class="card-title h4">{val.title}</h3>
+                                  </a>
+                                  <p className="card-text">
+                                    {val.text}
+                                  </p>
+                                </div>
+                                <div className="row align-items-center card-footer d-flex justify-content-between py-3 small">
+                                  <a href="#" className="align-items-center d-flex link-dark text-decoration-none">
+                                    <img src={require(`assets/img/content/pics/${val.posterIcon}`)} className="me-2 rounded-circle" width="48" height="48" alt="..." />
+                                    <div className="px-2">
+                                      <h4 class="h6 mb-0">{val.posterName}</h4>
+                                      <p class="mb-0 ">{val.postDate}</p>
+                                    </div>
+                                  </a>
+                                  <span>{val.postPeriod}</span>
+                                </div>
+                              </div>
+                            </div>)
+                        });
+                        return container;
+                      })()
+                    }
+
                   </div>
                   <nav aria-label="Blog navigation">
                     <ul className="justify-assets/content-center  pagination">
@@ -334,13 +277,14 @@ class Landing extends React.Component {
                   <div className="mb-4">
                     <h2 className="h5 text-primary">Tags</h2>
                     <hr className="mb-4" />
-                    <div><a className="btn btn-primary btn-sm mb-1 px-3" href="#">Art</a><a className="btn btn-primary btn-sm mb-1 px-3"
-                      href="#">Interview</a><a
-                        className="btn btn-primary btn-sm mb-1 px-3" href="#">Creative</a><a
-                          className="btn btn-primary btn-sm mb-1 px-3" href="#">DIY</a><a className="btn btn-primary btn-sm mb-1 px-3"
-                            href="#">Color</a><a
-                              className="btn btn-primary btn-sm mb-1 px-3" href="#">Marketing</a><a
-                                className="btn btn-primary btn-sm mb-1 px-3" href="#">Design</a>
+                    <div>
+                      <a className="btn btn-primary btn-sm mb-1 px-3" href="#">Art</a>
+                      <a className="btn btn-primary btn-sm mb-1 px-3" href="#">Interview</a>
+                      <a className="btn btn-primary btn-sm mb-1 px-3" href="#">Creative</a>
+                      <a className="btn btn-primary btn-sm mb-1 px-3" href="#">DIY</a>
+                      <a className="btn btn-primary btn-sm mb-1 px-3" href="#">Color</a>
+                      <a className="btn btn-primary btn-sm mb-1 px-3" href="#">Marketing</a>
+                      <a className="btn btn-primary btn-sm mb-1 px-3" href="#">Design</a>
                     </div>
                   </div>
                   <div className="mb-4">
@@ -999,40 +943,11 @@ class Landing extends React.Component {
                   </li>
                 </ul>
               </div>
-              <div className="col-sm-4 col-xl-2 py-3">
-                <h2 className="h5 mb-4 text-uppercase text-white-50">Services</h2>
-                <ul className="list-unstyled">
-                  <li className="mb-3"><a href="#" className="link-light text-decoration-none">Web Design</a>
-                  </li>
-                  <li className="mb-3"><a href="#" className="link-light text-decoration-none">Web Development</a>
-                  </li>
-                  <li className="mb-3"><a href="#" className="link-light text-decoration-none">WordPress</a>
-                  </li>
-                  <li className="mb-3"><a href="#" className="link-light text-decoration-none">Digital Marketing</a>
-                  </li>
-                  <li className="mb-3"><a href="#" className="link-light text-decoration-none">Content Writing</a>
-                  </li>
-                </ul>
-              </div>
-              <div className="col-sm-4 col-xl-2 py-3">
-                <h2 className="h5 mb-4 text-uppercase text-white-50">Other</h2>
-                <ul className="list-unstyled">
-                  <li className="mb-3"><a href="#" className="link-light text-decoration-none">Business Stories</a>
-                  </li>
-                  <li className="mb-3"><a href="#" className="link-light text-decoration-none">Learning</a>
-                  </li>
-                  <li className="mb-3"><a href="#" className="link-light text-decoration-none">Licence</a>
-                  </li>
-                  <li className="mb-3"><a href="#" className="link-light text-decoration-none">Refund Policy</a>
-                  </li>
-                  <li className="mb-3"><a href="#" className="link-light text-decoration-none">Terms of Service</a>
-                  </li>
-                </ul>
-              </div>
+
             </div>
             <div className="pb-3 pt-3 text-center">
               <hr className="border-secondary mt-0" />
-              <p className="mb-0">Copyright &copy; 2021 PG Agency Pvt. Ltd.</p>
+              <p className="mb-0">Copyright &copy; 2023</p>
             </div>
           </div>
         </footer>
