@@ -13,6 +13,7 @@ import Profile from "views/examples/Profile.js";
 import Home from "views/pages/Home.js";
 import Login from "views/pages/Login.js";
 import Register from "views/pages/Register.js";
+import SingleBlog from "views/pages/SingleBlog.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -23,6 +24,7 @@ root.render(
       <Route path="/" exact element={<Home />} />
       <Route path="/login" exact element={<Login />} />
       <Route path="/register" exact element={<Register />} />
+      <Route path="/blog/*" exact element={<SingleBlog />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   </BrowserRouter>
