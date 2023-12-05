@@ -136,7 +136,7 @@ class Landing extends React.Component {
                             <div className="col-md-6">
                               <div className="card h-100">
                                 {/* <Link to={`posts/${val.id}`} tag={Link}> */}
-                                <Link to={`blog`} tag={Link}   onClick={() => {window.scroll(0, 0);}}>
+                                <Link to={`blog/${val.id}`} tag={Link}   onClick={() => {window.scroll(0, 0);}}>
                                   <a href="#" className="d-block">
                                     <img src={require(`assets/img/content/pics/${val.postImg}`)} className="card-img-top img-fluid" alt="..." width="700" height="480" />
                                   </a>

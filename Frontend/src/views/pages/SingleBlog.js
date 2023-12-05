@@ -35,6 +35,166 @@ class SingleBlog extends React.Component {
   // }
 
   render() {
+    let id = (window.location.pathname).split("/")[2] 
+
+    let postArray = [
+      {
+        id: 1,
+        tags: ["Spices", "Culinary"],
+        blogImg: "grill.png",
+        title: "Grill Hack: How To Grill Fish Over Citrus",
+        text: `
+        <p>Cooking with fish can be more challenging than other types of meats thanks to its tendency to break apart during the process. Grilling fish over a bed of freshly sliced citrus can solve the delicacy problem—not to mention adding some serious flavor to your finished dish.
+
+        There are three major benefits to barbecuing your fish on top of citrus:
+        
+        Grilling your fish over citrus can improve the taste by neutralizing some of the less desirable flavors of fish, as well as adding the zesty brightness citrus fruits are renowned for.
+        Citrus slices add an eye-pleasing pop of color that makes your food look wonderful, both on the grill and on the plate.
+        Most importantly, the citrus slices prevent the fish from sticking to the grill grates—something fish is prone to do.
+        In this post, we’ll dig deeper into one of our favorite grill hacks—grilling fish over citrus. Keep reading to learn more about:
+        
+        How to grill fish over citrus
+        Additional tips for grilling fish
+        Let’s get cooking.</p>
+        
+        <p><h3>How To Grill Your Fish Over Citrus</p></h3>
+        
+        <p>Follow these steps for how to grill fish over citrus:</p>
+        
+        1. Coat your fish fillets or steaks with olive oil and season with salt and pepper.<br>
+        2. Slice your citrus of choice a quarter inch thick.<br>
+        3. Layer citrus slices directly onto your grill grates, or onto a wood plank or piece of slate. Alternately, place them into a basket to hold everything in place and make flipping easier.<br>
+        4. Place your fish directly on top of the citrus slices.<br>
+        5. Get cooking! Grill time will depend on the type of fish and the thickness of the cut. If you are using fillets or steaks, cooking time is typically around 3-4 minutes per side, but you don’t have to flip when grilling fish over citrus. If you opt to skip the flip, plan for 7-8 minutes cooking time. Whole fish will take longer to grill and do need to be flipped. 7-8 minutes per side is usually sufficient.<br>
+        
+        <p><h4>Types of citrus to try:</p></h4>
+        
+        <p>Different citrus offers different flavors to play with, and many of them pair well with a variety of fish. Lemon and salmon is a popular combo, but don’t be afraid to consider trying a variety of different citrus, including:</p>
+
+        <li>Meyer Lemon (Meyer lemons are less tart and have a thinner skin than a regular lemon)</li>
+        <li>Lime</li>
+        <li>Orange</li>
+        <li>Yuzu Lemon (Yuzu lemons are more sour than a regular lemon, but with floral and herbal notes)</li>
+        <li>Pink Grapefruit</li>
+        <li>Pomelo</li>
+        <p>You may also want to consider pairing the citrus slices with fresh herbs for a little extra flavor, such as basil, cilantro, dill (a classic with lemon and salmon), or rosemary.</p>
+    </p>
+        `,
+        posterIcon: "Blogger1.png",
+        posterName: "Dianne Russell",
+        postDate: "10 August 2023",
+        postPeriod: "6 min"
+      },
+      {
+        id: 2,
+        tags: ["Organic", "Fresh Produce"],
+        blogImg: "baking.jpg",
+        title: "Adapting to the latest bakery trends",
+        text: `
+        <p>Adapting to the latest bakery trends
+        BakeAway’s Doug Hall explains how the bake-at-home manufacturer has adapted its product range to suit consumer needs.
+        It’s no secret that the UK food and drink industry has seen unprecedented changes in recent years. Lockdown, 
+        the introduction of High Fat Salt and Sugar (HFSS) restrictions and the current cost-of-living crisis have forced key industry players, such as BakeAway, to adapt as it looks to future-proof its growth.
+        </p>
+         <p>BakeAway is a UK manufacturer creating a range of bake-at-home products, including pastry, dough and pancakes, both for their own pancake brands, licensed products and private label. 
+            Here, the manufacturer explains the main drivers in its sector at present and explains how it is adapting to meet current consumer trends.</p>   
+         <p>With stricter regulations still to be imposed in October 2023 – there will be limited opportunity for HFSS products bought through volume promotions, 
+            such as ‘buy one get one free’ offers, major snacking manufacturers have been scrambling to develop new products to bypass the laws.
+        </p>   
+        <p>BakeAway has revealed how the recent law changes have impacted its business and inspired its NPD plans. BakeAway’s recent NPD has included the launch of OaYeah! pancakes, made from an oat-based drink which contains less saturated fat and sugar than cow’s milk chilled pancakes. Data shows that oat milk is the UK consumers number one choice of dairy-free milk alternative.</p>
+        <p>“We know that consumers want reduced fat, salt and sugar options when shopping for themselves and their families, but they do not want to compromise on taste or stray too far from their weekly shopping budget,” said Jennie Bosson, Marketing Manager at BakeAway.</p>
+        <p>“This insight was key to the development of our latest product launch, OaYeah!, our HFSS-compliant ready-made, dairy-free pancake brand.</p>
+        <p>“According to the Bloomberg Intelligence Report, plant-based food sales are expected to increase fivefold by 2030. Our own insights – which helped inform our new product development with OaYeah! – reflect this trend, with more consumers looking for products with additional benefits, such as plant-based milk and protein enhancements. Consumer insights will continue to shape the future of BakeAway and inform our innovations moving forwards.”</p>
+        `,
+        posterIcon: "Blogger2.jpg",
+        posterName: "Kathryn Murphy",
+        postDate: "10 July 2023",
+        postPeriod: "8 min"
+      },
+      {
+        id: 3,
+        tags: ["International Recipes", "World Cuisine"],
+        blogImg: "Marinate.png",
+        title: "Marinade Myths And How To Add Flavor More Effectively",
+        text: `
+        <p>Marinades usually have a number of ingredients such as salt, oil, flavorings, and acidic liquids (SOFA). The molecules of each are different sizes and some are attracted to the chemicals in meats and some are repelled by them. Some can flow easily into the microscopic voids between muscle fibers, some are too large.</p>
+        <p><h3>Marinade Myths</h3></p>   
+        <p>Let’s debunk some myths about marinades, and then we can get into how to make them and how to make them work. Some facts:</p>
+       
+       <p><b>Myth: Marinades penetrate deep into meat</b>
+       <p>Marinades are primarily a surface treatment, especially on thicker cuts. Only the salt penetrates deep. Period. End of story.</p>
+       <p>Salt penetrates because it reacts chemically and electrically with the water in the meat. But molecules like sugar and garlic are comparatively huge and they do not react electrically when dissolved. Salt is made of just two atoms, sodium and chloride, NaCl. Sucrose is C12H22O11, that’s 45 atoms. Garlic’s active ingredient is allicin, C6H10OS2, and it has 18 atoms, and garlic powder is even larger and more complex than that. Sugar can move inward a bit after days of marinating.</p>
+       <p>Marinades, unless they are heavy with salt, in which case they more properly are called brines, do not penetrate meats very far, rarely more than 1/8″, even after many hours of soaking. Especially in the cold fridge where molecules are sluggish. They can enter tiny pores and cracks in the surface but that’s about it.</p>
+       <p>Meat is a protein sponge saturated with liquid. About 75% of meat is water. There’s not much room for any more liquid in there. Think of a sponge. When you are wiping up a spill, as it gets fully loaded you just can’t get any more liquid in there.</p>
+       <p>As research by the AmazingRibs.com science advisor Prof. Greg Blonder has shown, it takes salt almost 24 hours to penetrate meat 1″ deep (see my article on brines).</p>
+       <p>On top of this, most marinades have a lot of oil in them. And meat is mostly water. As we all know, oil and water don’t mix. That oil is just not getting past the microscopic cracks and pores in the surface.</p>
+        <p>There are important exceptions: Fish, shellfish, eggplant, and mushrooms, for example, absorb marinades more rapidly and deeply (see the photos at right). But for most meats and veggies, the benefit of marinades is that they flavor the surface. We are often bamboozled into thinking the marinade has soaked in because the knife, fork, and liquid on the plate are full of marinade flavor, because the flavors on the surface get on our tongue, and they get pushed down into the meat by our teeth.</p>   
+         <p>Try this experiment: Marinate a 2″ thick porkchop as long as you like in whatever you like. Since your marinade probably has some salt in it, take another 2″ chop and just salt it. Cook them side by side, bring them in and rinse them off to remove as much surface flavor as possible. Then cut off the outer 1/4″ of both. Be very very careful to not let the juices from the outsides touch the center. Now have a friend serve you tastes of both without telling you which is which. Hard to tell apart, aren’t they? They both taste like plain ol’ pork. You might taste salt, but no sugar, garlic, pepper, or whatever.</p> 
+        `,
+        posterIcon: "Blogger3.jpg",
+        posterName: "Darrell Steward",
+        postDate: "01 October 2023",
+        postPeriod: "5 min"
+      },
+      {
+        id: 4,
+        tags: ["Veganism", "Plant-Based Diet"],
+        blogImg: "BakingSoda.png",
+        title: "How Baking Soda Really Works",
+        text: `
+        <p>The funny thing about baking soda is that there are approximately a gazillion uses for it besides the singular usage spelled out in its very name.</p>
+        <p>It’s remarkable that the stuff hasn’t been renamed “everything soda.” After all, the Egyptians were using a baking soda–like substance back in B.C. times to mummify their dead. Today, it’s no secret that sodium bicarbonate—the chemical composition of baking soda—has powerful cleaning, scouring, and deodorizing qualities. You can use it to shine up your sink or your silver jewelry; freshen your laundry; rinse away pesticide residue from produce or clean garlicky flavors from wooden chopping boards. And, of course, who doesn’t have a blaze orange Arm & Hammer box of undetermined vintage cracked open in the farthest reaches of their refrigerator? Over the years, entire books have been devoted to the multi-category wonders of baking soda: natural cleaning, health remedies, and more. But not all recommendations are equal.</p>   
+        <p>For all the wonders of baking soda, some of its purported uses are best avoided (you can wreck your skin’s natural barrier, for example, by using it as an exfoliator). Even for many baking recipes, it’s not the ideal leavener to use, while it actually is the right box to grab for all sorts of other cooking tricks. To find out what exactly baking soda does and when to use it, I called up two scientist-cookbook authors: Nik Sharma, a molecular biologist and the author of the Flavor Equation, and Shirley Corriher, a biochemist and the author of KitchenWise.</p>
+        `,
+        posterIcon: "Blogger4.jpg",
+        posterName: "Mark Smith",
+        postDate: "11 November 2023",
+        postPeriod: "6 min"
+      },
+      {
+        id: 5,
+        tags: ["Culinary", "Creative Cooking"],
+        blogImg: "Bread.png",
+        title: "Break Up With Your Toaster, Pan-Fry Your Bread Instead",
+        text: `
+        <p>I think it’s time to break up with your toaster.</p>
+        <p>This is easy for me to say: I don’t have one and haven’t for over a decade. Counter space is precious around these parts, and though my adolescence was full of Eggo waffles, I no longer require the services of bulky, single-task appliances such as the four-slice toaster I grew up using. It’s not that I’ve given up toast—in fact, I may be eating more of it than ever before. I’ve simply changed my technique. Now I’m all about pan-frying my bread in oil, creating a delightfully crispy, mildly indulgent base for whatever else I want to eat. One bite and you might find yourself wrapping up your toaster cord for the very last time.
+
+        </p>   
+        <p>What makes fried bread so (SO) much better than the regular stuff? It’s the perfect storm of rich flavor, next-level crispiness, and adaptability. I’d go so far as to say that toast prepared this way shouldn’t even be called toast, since it’s so wildly different is it from the typical breakfast carb. If you’re on the fence about giving it a shot, allow me to detail fried bread's many assets, in an effort to convince you to kick your toaster to the curb.</p>
+       <h3>It’s easy.</h3>
+       <p>Okay, so the process is a bit more involved than inserting slices into a slot and pressing a button. But for the added flavor and texture bump, it’s only a few extra minutes of effort. </p>
+
+       <p>Just heat a few glugs of your choice of oil (more on that shortly) in a pan over medium heat. Once the oil is hot, add your bread. I like to rub my slice in the oil on one side just to coat, then immediately flip it over to fry thoroughly on the other side before flipping back to finish; this ensures that the second side is already glistening and ready to go, so you won’t need to add any extra oil. Once your toast is crisp and golden brown, transfer it to a plate and immediately season with a bit of salt before loading it up with the toppings of your choice.</p>
+       <h3>It’s flavorful.</h3>
+       <p>Unlike the dry toast you can make in a toaster (or under the broiler in your oven), slices fried in oil are rich and luxurious; that bit of extra fat goes a long way in the flavor department. But you can take your toast in a more specific taste direction by switching up the oil you use. I love coconut and sesame oil for crisping bread, especially when the toppings I’m planning to use go particularly well with those flavors. Coconut oil’s creamy, distinctive notes are delightful under a scoop of dal, while sesame oil adds a nuttiness to a banh mi-inspired slice with plenty of mayo. Try avocado oil, peanut oil, sunflower seed oil, or ghee, which makes a delightful toast that I could eat topped with leftover saag every single day.</p>
+        `,
+        posterIcon: "Blogger5.png",
+        posterName: "Melissa Ricks",
+        postDate: "07 January 2023",
+        postPeriod: "8 min"
+      },
+      {
+        id: 6,
+        tags: ["Healthy Eating", "Green Living"],
+        blogImg: "Pan.png",
+        title: "The Best Nonstick Pans, Tested and Reviewed",
+        text: `
+        <p>If cooking were a video game, using nonstick pans would be like playing on easy mode. The best nonstick pans are some of the most forgiving kitchen tools you can use. Do you happen to struggle a little with sautéing and stir-frying? Nonstick will minimize any burnt, cruddy mishaps. Are you scarred by pancake fails of years past? Nonstick pans practically do all the work for you.</p>
+        <p>Any individual who feels that their cooking skills are, shall we say, under-seasoned, will benefit from having a nonstick pan in their arsenal. However, it’s a good idea to not rely on them for too long. Nonstick coatings do not last forever; a pan’s lifespan can vary depend on the type of nonstick coating but you can expect pretty much all of them to lose their flawless glide after a couple of years. Yes, even the pans boasting (limited) lifetime warranties. We hate to say it, but these pans, are disposable by design, which is why we suggest thinking a little before buying that appealing direct-to-consumer nonstick cookware set (and if you must go the pan set route, keep it to stainless steel).</p>   
+        <p>That being said, we understand that there are many home cooks out there who just want to make dinner on easy mode, and not have to stress too much about technique and clean up. We aren’t immune to the nonstick pan’s charms either. Especially when cooking eggs in dishes like like crepes, omelets, and frittatas, nonstick properties are an undeniable boon.</p>
+        <p>We’ve spent several years searching for the best nonstick pans, and have put many different models through our comprehensive testing process in the kitchen. We’ve also gathered anecdotal evidence from Epicurious staffers who’ve owned and tested these pans at home for several years and can attest to how different nonstick coatings fare over time. Read on to learn more about our top picks for the best nonstick pan in both the standard and ceramic categories; scroll down for specifics about how we tested each pan and tips for how to care for your nonstick pan.
+        `,
+        posterIcon: "Blogger6.png",
+        posterName: "Dianne Steward",
+        postDate: "23 October 2023",
+        postPeriod: "5 min"
+      }
+    ];
+
+    id = id>0 && id<7 ? id : 1;
+    const content = postArray[id - 1]
+
     return (
       <>
         <Navbar className="" />
@@ -45,13 +205,13 @@ class SingleBlog extends React.Component {
             <div className="container">
 
               <Breadcrumb listTag="div">
-                <BreadcrumbItem tag="a">
+                <BreadcrumbItem>
                   <Link to={"/"} tag={Link}>
                     Home
                   </Link>
                 </BreadcrumbItem>
 
-                <BreadcrumbItem tag="a">
+                <BreadcrumbItem>
                   <Link to={"/blogs"} tag={Link}>
                     Blog
                   </Link>
@@ -77,81 +237,64 @@ class SingleBlog extends React.Component {
                   <article className="entry entry-single">
 
                     <div className="entry-img">
-                      <img src={require(`assets/img/content/pics/baking.jpg`)} alt="" className="img-fluid" />
+                      <img src={require(`assets/img/content/pics/${content.blogImg}`)} alt="" className="img-fluid" />
                     </div>
 
                     <h2 className="entry-title">
-                      Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia
+                      {content.title}
                     </h2>
 
                     <div >
                       <ul className="entry-meta">
-                        <li className="d-flex align-items-center pr-3"><i className="fa fa-user pr-1" /><a href="#">John Doe</a></li>
-                        <li className="d-flex align-items-center pr-3"><i className="fa fa-clock-o pr-1" /> <a href="#"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
+                        <li className="d-flex align-items-center pr-3"><i className="fa fa-user pr-1" /><a href="#">{content.posterName}</a></li>
+                        <li className="d-flex align-items-center pr-3"><i className="fa fa-clock-o pr-1" /> <a href="#"><time dateTime="2020-01-01">{content.postDate}</time></a></li>
                         <li className="d-flex align-items-center pr-3"><i className="fa fa-commenting pr-1" /> <a href="#">12 Comments</a></li>
                       </ul>
                     </div>
 
                     <div className="entry-content">
-                      <p>
-                        Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.
-                        Et eveniet enim. Qui velit est ea dolorem doloremque deleniti aperiam unde soluta. Est cum et quod quos aut ut et sit sunt. Voluptate porro consequatur assumenda perferendis dolore.
-                      </p>
+                      <div className="content" dangerouslySetInnerHTML={{ __html: content.text }}></div>
+                      {/* <img src={require(`assets/img/content/pics/BakingSoda.png`)} className="img-fluid" alt="" /> */}
 
-                      <p>
-                        Sit repellat hic cupiditate hic ut nemo. Quis nihil sunt non reiciendis. Sequi in accusamus harum vel aspernatur. Excepturi numquam nihil cumque odio. Et voluptate cupiditate.
-                      </p>
-
-
-                      <p>
-                        Sed quo laboriosam qui architecto. Occaecati repellendus omnis dicta inventore tempore provident voluptas mollitia aliquid. Id repellendus quia. Asperiores nihil magni dicta est suscipit perspiciatis. Voluptate ex rerum assumenda dolores nihil quaerat.
-                        Dolor porro tempora et quibusdam voluptas. Beatae aut at ad qui tempore corrupti velit quisquam rerum. Omnis dolorum exercitationem harum qui qui blanditiis neque.
-                        Iusto autem itaque. Repudiandae hic quae aspernatur ea neque qui. Architecto voluptatem magni. Vel magnam quod et tempora deleniti error rerum nihil tempora.
-                      </p>
-
-                      <h3>Et quae iure vel ut odit alias.</h3>
-                      <p>
-                        Officiis animi maxime nulla quo et harum eum quis a. Sit hic in qui quos fugit ut rerum atque. Optio provident dolores atque voluptatem rem excepturi molestiae qui. Voluptatem laborum omnis ullam quibusdam perspiciatis nulla nostrum. Voluptatum est libero eum nesciunt aliquid qui.
-                        Quia et suscipit non sequi. Maxime sed odit. Beatae nesciunt nesciunt accusamus quia aut ratione aspernatur dolor. Sint harum eveniet dicta exercitationem minima. Exercitationem omnis asperiores natus aperiam dolor consequatur id ex sed. Quibusdam rerum dolores sint consequatur quidem ea.
-                        Beatae minima sunt libero soluta sapiente in rem assumenda. Et qui odit voluptatem. Cum quibusdam voluptatem voluptatem accusamus mollitia aut atque aut.
-                      </p>
-                      <img src={require(`assets/img/content/pics/BakingSoda.png`)} className="img-fluid" alt="" />
-
-                      <h3>Ut repellat blanditiis est dolore sunt dolorum quae.</h3>
-                      <p>
-                        Rerum ea est assumenda pariatur quasi et quam. Facilis nam porro amet nostrum. In assumenda quia quae a id praesentium. Quos deleniti libero sed occaecati aut porro autem. Consectetur sed excepturi sint non placeat quia repellat incidunt labore. Autem facilis hic dolorum dolores vel.
-                        Consectetur quasi id et optio praesentium aut asperiores eaque aut. Explicabo omnis quibusdam esse. Ex libero illum iusto totam et ut aut blanditiis. Veritatis numquam ut illum ut a quam vitae.
-                      </p>
-                      <p>
-                        Alias quia non aliquid. Eos et ea velit. Voluptatem maxime enim omnis ipsa voluptas incidunt. Nulla sit eaque mollitia nisi asperiores est veniam.
-                      </p>
 
                     </div>
 
                     <div className="d-flex entry-footer">
 
-                      <i className="fa fa-folder-o pr-1"></i>
+                      {/* <i className="fa fa-folder-o pr-1"></i>
                       <ul className="item pr-3">
                         <li><a href="#">Business</a></li>
-                      </ul>
+                      </ul> */}
 
                       <i className="fa fa-tags pr-1"></i>
                       <ul className="item">
-                        <li><a href="#">Creative</a></li>
-                        <li><a href="#">Tips</a></li>
-                        <li><a href="#">Marketing</a></li>
+                        {
+                          (() => {
+                            let container = [];
+                            content.tags.map((val) => {
+                              console.log(val)
+
+                              container.push(
+                                <li><a href="#">{val}</a></li>
+                              )
+                            })
+
+                            console.log(container)
+                            return container;
+                          })()
+                        }
                       </ul>
                     </div>
 
                   </article>
 
                   <div className="mt-5 entry blog-author d-flex align-items-center">
-                    <img src={require(`assets/img/content/pics/Blogger2.jpg`)} className="rounded-circle float-left" width="120" alt="" />
+                    <img src={require(`assets/img/content/pics/${content.blogImg}`)} className="rounded-circle float-left" width="120" alt="" />
                     <div className="pl-2">
-                      <h4>Jane Smith</h4>
-                      <p>
+                      <h4>{content.posterName}</h4>
+                      {/* <p>
                         Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.
-                      </p>
+                      </p> */}
                     </div>
                   </div>
 
