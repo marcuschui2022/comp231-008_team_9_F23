@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import {  Navigate } from 'react-router-dom';
 // reactstrap components
 import {
   Button,
@@ -75,15 +76,22 @@ class Login extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();  
     
-    const token = await loginUser({
+   const token = await loginUser({
       username: this.state.username,
       password: this.state.password
     });
     // setToken(token);
+    if (token) {
+      console.log('Login successful');
+      this.setState({ redirectToHome: true });
+    }
   }
 
-  render() {
 
+  render() {
+    if (this.state.redirectToHome) {
+      return <Navigate to="/" />;  // Redirect to the home page
+    }
     return (
       <>
         <Navbar />
@@ -172,3 +180,4 @@ class Login extends React.Component {
 }
 
 export default Login;
+//export default withRouter(Login);
