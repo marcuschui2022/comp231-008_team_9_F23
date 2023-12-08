@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "aa026eaf-85d4-45bf-a922-78d5e1fa3620",
-		"name": "Foodista_Blog Copy",
+		"_postman_id": "167e4190-7629-4b2a-bd26-fee85eeb7b7c",
+		"name": "Foodista_Blog",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "31217253"
 	},
@@ -85,7 +85,7 @@
 			"response": []
 		},
 		{
-			"name": "Login User",
+			"name": "Login User Copy",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -108,6 +108,166 @@
 						"api",
 						"users",
 						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get blogs all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/blogs/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"blogs",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get blogs by user id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/blogs/user/65723b6242d8ad5a79cb0484",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"blogs",
+						"user",
+						"65723b6242d8ad5a79cb0484"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get blogs by blog id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/blogs/657243e75d27f103154362a3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"blogs",
+						"657243e75d27f103154362a3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get post all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/posts/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get post by post id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/posts/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create post by user's blog id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"post-title\",\n    \"author\": \"post-author\",\n    \"pubDate\": \"2022-01-01T00:00:00.000+00:00\",\n    \"category\": \"FREE\",\n    \"classification\": \"RECIPE\",\n    \"cookingType\": null,\n    \"cookingStyle\": null,\n    \"tags\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/posts/user/657243e75d27f103154362a3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"posts",
+						"user",
+						"657243e75d27f103154362a3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post blog",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"blogID\": \"\",\n    \"user\": \"\",\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/blogs/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"blogs",
+						""
 					]
 				}
 			},

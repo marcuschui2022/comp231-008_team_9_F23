@@ -2,7 +2,6 @@ package com.foodistaws.controller;
 
 import com.foodistaws.entity.Blog;
 import com.foodistaws.service.BlogService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,27 +18,33 @@ public class BlogController {
     }
 
     @PostMapping("/")
-    Blog createBlog(@RequestBody Blog newBlog){
+    Blog createBlog(@RequestBody Blog newBlog) {
         return blogService.create(newBlog);
     }
 
     @GetMapping("/{id}")
-    Blog readOneBlog(@PathVariable String id){
+    Blog readOneBlog(@PathVariable String id) {
         return blogService.readOne(id);
     }
 
+    // get all blogs by user id
+    @GetMapping("/user/{id}")
+    List<Blog> readAllBlogsByUserId(@PathVariable String id) {
+        return blogService.readByUserID(id);
+    }
+
     @GetMapping("/")
-    List<Blog> readAllBlogs(){
+    List<Blog> readAllBlogs() {
         return blogService.readAll();
     }
 
     @PutMapping("/{id}")
-    Blog updateBlog(@RequestBody Blog newBlog, @PathVariable String id){
-        return blogService.update(newBlog,id);
+    Blog updateBlog(@RequestBody Blog newBlog, @PathVariable String id) {
+        return blogService.update(newBlog, id);
     }
 
     @DeleteMapping("/{id}")
-    void deleteBlog(@PathVariable String id){
+    void deleteBlog(@PathVariable String id) {
         blogService.delete(id);
     }
 }

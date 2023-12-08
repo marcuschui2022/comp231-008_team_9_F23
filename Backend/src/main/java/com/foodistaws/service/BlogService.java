@@ -15,20 +15,25 @@ public class BlogService {
         this.repository = repository;
     }
 
-    public Blog create(Blog newBlog){
+    public Blog create(Blog newBlog) {
         return repository.save(newBlog);
     }
 
-    public Blog readOne(String id){
+    // get blogs by user id
+    public List<Blog> readByUserID(String userID) {
+        return repository.findBlogsByUser_UserID(userID);
+    }
+
+    public Blog readOne(String id) {
         return repository.findById(id)
                 .orElseThrow(() -> new BlogNotFoundException(id));
     }
 
-    public List<Blog> readAll(){
+    public List<Blog> readAll() {
         return repository.findAll();
     }
 
-    public Blog update(Blog newBlog, String id){
+    public Blog update(Blog newBlog, String id) {
         return repository.findById(id)
                 .map(blog -> {
                     blog.setUser(newBlog.getUser());
@@ -41,7 +46,7 @@ public class BlogService {
                 });
     }
 
-    public void delete(String id){
+    public void delete(String id) {
         repository.deleteById(id);
     }
 }
