@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"fullName\": \"\",\r\n    \"email\": \"\",\r\n    \"userName\": \"\",\r\n    \"passwd\": \"abc#123\",\r\n    \"roleID\": null,\r\n    \"role\": null\r\n}",
+					"raw": "{\r\n    \"fullName\": \"marcus test\",\r\n    \"email\": \"marcustest2@gmail.com\",\r\n    \"userName\": \"marcustest\",\r\n    \"passwd\": \"password\",\r\n    \"roleID\": null,\r\n    \"role\": null\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,7 +70,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/users/655295fd5c85b303bb697c11",
+					"raw": "localhost:8080/api/users/",
 					"host": [
 						"localhost"
 					],
@@ -78,7 +78,7 @@
 					"path": [
 						"api",
 						"users",
-						"655295fd5c85b303bb697c11"
+						""
 					]
 				}
 			},
@@ -139,7 +139,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/blogs/user/65723b6242d8ad5a79cb0484",
+					"raw": "localhost:8080/api/blogs/user/65726ef59a6f7547d80ecd85",
 					"host": [
 						"localhost"
 					],
@@ -148,7 +148,7 @@
 						"api",
 						"blogs",
 						"user",
-						"65723b6242d8ad5a79cb0484"
+						"65726ef59a6f7547d80ecd85"
 					]
 				}
 			},
@@ -200,7 +200,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/posts/",
+					"raw": "localhost:8080/api/posts/65724f387102db4418569c06",
 					"host": [
 						"localhost"
 					],
@@ -208,7 +208,7 @@
 					"path": [
 						"api",
 						"posts",
-						""
+						"65724f387102db4418569c06"
 					]
 				}
 			},
@@ -221,7 +221,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"post-title\",\n    \"author\": \"post-author\",\n    \"pubDate\": \"2022-01-01T00:00:00.000+00:00\",\n    \"category\": \"FREE\",\n    \"classification\": \"RECIPE\",\n    \"cookingType\": null,\n    \"cookingStyle\": null,\n    \"tags\": null\n}",
+					"raw": "{\n    \"title\": \"post-title 6\",\n    \"author\": \"post-author 7\",\n    \"pubDate\": \"2022-01-01T00:00:00.000+00:00\",\n    \"category\": \"FREE\",\n    \"classification\": \"RECIPE\",\n    \"cookingType\": null,\n    \"cookingStyle\": null,\n    \"tags\": null\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -229,7 +229,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/posts/user/657243e75d27f103154362a3",
+					"raw": "localhost:8080/api/posts/user/65727305c305a7007c0527c1",
 					"host": [
 						"localhost"
 					],
@@ -238,7 +238,7 @@
 						"api",
 						"posts",
 						"user",
-						"657243e75d27f103154362a3"
+						"65727305c305a7007c0527c1"
 					]
 				}
 			},
@@ -251,7 +251,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"blogID\": \"\",\n    \"user\": \"\",\n    \"title\": \"\",\n    \"description\": \"\"\n}",
+					"raw": "{\n    \"user\": {\n        \"userID\": \"657272e9c305a7007c0527c0\",\n        \"fullName\": \"marcus test\",\n        \"email\": \"marcustest2@gmail.com\",\n        \"userName\": \"marcustest\",\n        \"passwd\": \"password\",\n        \"role\": null\n    },\n    \"title\": \"blog title 2 22\",\n    \"description\": \"blog desc\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
