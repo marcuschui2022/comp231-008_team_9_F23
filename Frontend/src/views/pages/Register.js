@@ -1,5 +1,6 @@
 
-import React from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
 
 // reactstrap components
 import {
@@ -22,6 +23,28 @@ import {
 import Navbar from "components/Navbars/Navbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import PasswordInput from "components/PasswordInput";
+import { Link, Navigate } from "react-router-dom";
+
+
+async function RegisterUser(credentials) {
+  return axios({
+    method: 'post',
+    url: 'http://localhost:8080/api/users/',
+    headers: {
+      Accept: "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      crossdomain: true 
+    },
+    data: credentials
+  }).then(function (response) {
+    localStorage.setItem('user', JSON.stringify(response))
+    console.log(response);
+    return response;
+  }).catch(function (error) {
+    console.log(error);
+  });
+}
 
 class Register extends React.Component {
   state = {
@@ -40,8 +63,22 @@ class Register extends React.Component {
     });
   };
 
-  submitForm() {
+  async submitForm(e) {
+    e.preventDefault();  
     console.log(this.state)
+    const token = await RegisterUser({
+      userName: this.state.username,
+      passwd: this.state.password,
+      fullName: this.state.name,
+      email: this.state.email,
+      roleID: null,
+      role: null
+    });
+    // setToken(token);
+    if (token) {
+      console.log('Register successful');
+      this.setState({ redirectToHome: true });
+    }
   }
 
   componentDidMount() {
@@ -50,6 +87,9 @@ class Register extends React.Component {
     this.refs.main.scrollTop = 0;
   }
   render() {
+    if (this.state.redirectToHome) {
+      return <Navigate to="/" />;  // Redirect to the home page
+    }
     return (
       <>
         <Navbar />
@@ -99,7 +139,7 @@ class Register extends React.Component {
 
                         <PasswordInput passwordValue={value => this.changeFormState("password", value)} />
 
-                        <PasswordInput text="Confirm Password" passwordValue={value => this.changeFormState("confirmPassword", value)} />
+                        {/* <PasswordInput text="Confirm Password" passwordValue={value => this.changeFormState("confirmPassword", value)} /> */}
 
                         <FormGroup className="mb-3">
                           <Input
@@ -145,7 +185,7 @@ class Register extends React.Component {
                             className="mt-4"
                             color="primary"
                             type="button"
-                            onClick={() => this.submitForm()}
+                            onClick={(e) => this.submitForm(e)}
                           >
                             Create account
                           </Button>

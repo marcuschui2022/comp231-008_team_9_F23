@@ -48,8 +48,51 @@ class HeaderNavbar extends React.Component {
     });
   };
 
+  getUser = () => {
+    var tmp  = localStorage.getItem('user');
+    console.log(tmp)
+    if(tmp != null){
+      return true
+    }
+    return false
+  }
+
+  logout = () => {
+    localStorage.removeItem('user');
+    window.location.reload(false);
+  }
+
+
   render() {
 
+    var button;
+    if (this.getUser()) {
+      button = (<>
+        <div className="ms-lg-3">
+          <Link to="/create" tag={Link}>
+            <button className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Create</button>
+          </Link>
+        </div>
+
+        <div className="ms-lg-3">
+            <button  onClick={(e) => this.logout()} className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Logout</button>
+        </div>
+      </>)
+    } else {
+      button = (<>
+        <div className="ms-lg-3">
+          <Link to="/register" tag={Link}>
+            <button className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Register</button>
+          </Link>
+        </div>
+
+        <div className="ms-lg-3">
+          <Link to="/login" tag={Link}>
+            <button className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Login</button>
+          </Link>
+        </div>
+      </>)
+    }
     // if(!token) {
     //   // return <Login setToken={setToken} />
     // }
@@ -66,8 +109,8 @@ class HeaderNavbar extends React.Component {
               <Link to="/" tag={Link}>
                 <b className="font-weight-700 text-dark h5 " >Foodista!&nbsp;<img width="75" src={require("assets/img/logo.png")} /></b>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown-3"
-                  aria-controls="navbarNavDropdown-3" aria-expanded="false" aria-label="Toggle navigation"><span
-                    className="navbar-toggler-icon"></span>
+                  aria-controls="navbarNavDropdown-3" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
                 </button>
               </Link>
 
@@ -75,7 +118,9 @@ class HeaderNavbar extends React.Component {
               <div className="collapse navbar-collapse " id="navbarNavDropdown-3">
                 <ul className="mb-2 mb-lg-0 ms-auto navbar-nav">
                   <li className="nav-item">
-                    <a className="active nav-link px-lg-3 py-lg-4" aria-current="page" href="#">Home</a>
+                    <Link to="/" tag={Link}>
+                      <span className="active nav-link px-lg-3 py-lg-4" aria-current="page" href="#">Home</span>
+                    </Link>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link px-lg-3 py-lg-4" href="#">Articles</a>
@@ -93,17 +138,8 @@ class HeaderNavbar extends React.Component {
                   </li>
                 </ul>
 
-                <div className="ms-lg-3">
-                  <Link to="/register" tag={Link}>
-                    <button className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Register</button>
-                  </Link>
-                </div>
+                {button}
 
-                <div className="ms-lg-3">
-                  <Link to="/login" tag={Link}>
-                    <button className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Login</button>
-                  </Link>
-                </div>
               </div>
             </Container>
           </Navbar>

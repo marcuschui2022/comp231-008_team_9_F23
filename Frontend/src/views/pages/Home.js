@@ -21,7 +21,6 @@ import {
 } from "reactstrap";
 
 // core components
-import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 
 // index page sections
@@ -77,7 +76,7 @@ class Landing extends React.Component {
         tags: ["Veganism", "Plant-Based Diet"],
         postImg: "BakingSoda.png",
         title: "How Baking Soda Really Works",
-        text: "The funny thing about baking soda is that there are approximately a gazillion uses for it besides the singular usage spelled out in its very name.",
+        text: "The funny thing about baking soda is that there are approximately a gazillion uses htmlFor it besides the singular usage spelled out in its very name.",
         posterIcon: "Blogger4.jpg",
         posterName: "Mark Smith",
         postDate: "11 November 2023",
@@ -119,9 +118,9 @@ class Landing extends React.Component {
           </section>
           <section className="pb-3 pt-3">
             <div className="container pb-5 pt-5">
-              <h2 class="h5 text-primary">Latest Articles</h2>
-              <h3 class="h1 text-dark">Feast of Flavors</h3>
-              <p class="lead mb-4">Welcome to Foodista! The Feast of Flavors and Culinary Adventure beyond the ordinary. We are a food blog
+              <h2 className="h5 text-primary">Latest Articles</h2>
+              <h3 className="h1 text-dark">Feast of Flavors</h3>
+              <p className="lead mb-4">Welcome to Foodista! The Feast of Flavors and Culinary Adventure beyond the ordinary. We are a food blog
                 where every recipe tells a story and every dish takes you on a journey. We explore the uncharted territories of taste,
                 bringing you a blend of classic favorites with a twist and exotic dishes from corners of the globe you've yet to discover.
               </p>
@@ -133,25 +132,25 @@ class Landing extends React.Component {
                         let container = [];
                         postArray.forEach((val, index) => {
                           container.push(
-                            <div className="col-md-6">
+                            <div  className="col-md-6">
                               <div className="card h-100">
                                 {/* <Link to={`posts/${val.id}`} tag={Link}> */}
                                 <Link to={`blog/${val.id}`} tag={Link}   onClick={() => {window.scroll(0, 0);}}>
-                                  <a href="#" className="d-block">
+                                  <span>
                                     <img src={require(`assets/img/content/pics/${val.postImg}`)} className="card-img-top img-fluid" alt="..." width="700" height="480" />
-                                  </a>
+                                  </span>
                                 </Link>
                                 <div className="card-body">
                                   <div className="fw-bold mb-1 text-primary">
                                     {
                                       val.tags.map((tag, index) => {
                                         let connectStr = index + 1 < val.tags.length ? ", " : "";
-                                        return (<a href="#" className="link-primary text-decoration-none">{tag + connectStr}</a>)
+                                        return (<a href="#"  className="link-primary text-decoration-none">{tag + connectStr}</a>)
                                       })
                                     }
                                   </div>
                                   <a href="#" className="link-dark text-decoration-none">
-                                    <h3 class="card-title h4">{val.title}</h3>
+                                    <h3 className="card-title h4">{val.title}</h3>
                                   </a>
                                   <p className="card-text">
                                     {val.text}
@@ -161,8 +160,8 @@ class Landing extends React.Component {
                                   <a href="#" className="align-items-center d-flex link-dark text-decoration-none">
                                     <img src={require(`assets/img/content/pics/${val.posterIcon}`)} className="me-2 rounded-circle" width="48" height="48" alt="..." />
                                     <div className="px-2">
-                                      <h4 class="h6 mb-0">{val.posterName}</h4>
-                                      <p class="mb-0 ">{val.postDate}</p>
+                                      <h4 className="h6 mb-0">{val.posterName}</h4>
+                                      <p className="mb-0 ">{val.postDate}</p>
                                     </div>
                                   </a>
                                   <span>{val.postPeriod}</span>
@@ -218,15 +217,15 @@ class Landing extends React.Component {
                     <form>
                       <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked />
-                        <label className="form-check-label" for="inlineRadio1">All</label>
+                        <label className="form-check-label" htmlFor="inlineRadio1">All</label>
                       </div>
                       <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option1" />
-                        <label className="form-check-label" for="inlineRadio1">Free</label>
+                        <label className="form-check-label" htmlFor="inlineRadio1">Free</label>
                       </div>
                       <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option2" />
-                        <label className="form-check-label" for="inlineRadio2">Premium</label>
+                        <label className="form-check-label" htmlFor="inlineRadio2">Premium</label>
                       </div>
                     </form>
                   </div>
@@ -236,15 +235,15 @@ class Landing extends React.Component {
                     <form>
                       <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio11" value="option1" checked />
-                        <label className="form-check-label" for="inlineRadio1">All</label>
+                        <label className="form-check-label" htmlFor="inlineRadio1">All</label>
                       </div>
                       <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio22" value="option1" />
-                        <label className="form-check-label" for="inlineRadio1">Article</label>
+                        <label className="form-check-label" htmlFor="inlineRadio1">Article</label>
                       </div>
                       <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio33" value="option2" />
-                        <label className="form-check-label" for="inlineRadio2">Recipe</label>
+                        <label className="form-check-label" htmlFor="inlineRadio2">Recipe</label>
                       </div>
                     </form>
                   </div>
@@ -336,7 +335,7 @@ class Landing extends React.Component {
               </div>
             </div>
           </section>
-          <section className="bg-primary text-center text-lg-start text-white">
+          {/* <section className="bg-primary text-center text-lg-start text-white">
             <svg viewBox="0 0 1440 185" preserveAspectRatio="none" fill="currentColor" version="1.1"
               xmlns="http://www.w3.org/2000/svg" className="bg-primary d-block text-white" width="100%" height="160">
               <path d="M 0 0 H 1440 V 60 C 1114 355 700 35 516 35 C 333 35 246 199 0 60 V 0 Z" />
@@ -890,11 +889,11 @@ class Landing extends React.Component {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
         </main>
         <footer className="bg-dark pt-5 text-white">
           <div className="container">
-            <div className="row">
+            {/* <div className="row">
               <div className="col-xl-4 me-auto py-3"><a href="#"
                 className="d-inline-block h2 mb-4 text-decoration-none text-uppercase text-white-50">PG
                 Agency&nbsp;</a>
@@ -945,7 +944,7 @@ class Landing extends React.Component {
                 </ul>
               </div>
 
-            </div>
+            </div> */}
             <div className="pb-3 pt-3 text-center">
               <hr className="border-secondary mt-0" />
               <p className="mb-0">Copyright &copy; 2023</p>

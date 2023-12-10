@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import {  Navigate } from 'react-router-dom';
 // reactstrap components
 import {
   Button,
@@ -23,7 +22,7 @@ import {
 import Navbar from "components/Navbars/Navbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import PasswordInput from "components/PasswordInput";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 
 async function loginUser(credentials) {
@@ -38,6 +37,7 @@ async function loginUser(credentials) {
     },
     data: credentials
   }).then(function (response) {
+    localStorage.setItem('user', JSON.stringify(response.data))
     console.log(response);
     return response;
   }).catch(function (error) {
@@ -160,11 +160,11 @@ class Login extends React.Component {
                     </Col>
                     <Col className="text-right" xs="6">
                       <Link to="/register" tag={Link}>
-                        <a
+                        <span
                           className="text-light"
                         >
                           <small>Register new account</small>
-                        </a>
+                        </span>
                       </Link>
 
                     </Col>
