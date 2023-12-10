@@ -22,7 +22,7 @@ import {
 import Navbar from "components/Navbars/Navbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import PasswordInput from "components/PasswordInput";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 
 async function loginUser(credentials) {
@@ -37,6 +37,7 @@ async function loginUser(credentials) {
     },
     data: credentials
   }).then(function (response) {
+    localStorage.setItem('user', JSON.stringify(response.data))
     console.log(response);
     return response;
   }).catch(function (error) {
@@ -75,15 +76,22 @@ class Login extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();  
     
-    const token = await loginUser({
+   const token = await loginUser({
       username: this.state.username,
       password: this.state.password
     });
     // setToken(token);
+    if (token) {
+      console.log('Login successful');
+      this.setState({ redirectToHome: true });
+    }
   }
 
-  render() {
 
+  render() {
+    if (this.state.redirectToHome) {
+      return <Navigate to="/" />;  // Redirect to the home page
+    }
     return (
       <>
         <Navbar />
@@ -152,11 +160,11 @@ class Login extends React.Component {
                     </Col>
                     <Col className="text-right" xs="6">
                       <Link to="/register" tag={Link}>
-                        <a
+                        <span
                           className="text-light"
                         >
                           <small>Register new account</small>
-                        </a>
+                        </span>
                       </Link>
 
                     </Col>
@@ -172,3 +180,4 @@ class Login extends React.Component {
 }
 
 export default Login;
+//export default withRouter(Login);

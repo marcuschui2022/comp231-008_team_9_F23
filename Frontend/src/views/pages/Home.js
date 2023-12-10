@@ -1,7 +1,9 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 // nodejs library that concatenates classes
 import classnames from "classnames";
+import axios from 'axios';
+import moment from 'moment';
 
 // reactstrap components
 import {
@@ -21,7 +23,6 @@ import {
 } from "reactstrap";
 
 // core components
-import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 
 // index page sections
@@ -29,15 +30,102 @@ import Download from "../IndexSections/Download.js";
 import Navbar from "components/Navbars/Navbar.js";
 import { Link } from "react-router-dom";
 
+
+function extractContent(s) {
+  var span = document.createElement('span');
+  span.innerHTML = s;
+  return span.textContent || span.innerText;
+};
+
+
+async function getAllPost() {
+  return axios({
+    method: 'get',
+    url: 'http://localhost:8080/api/posts/',
+    headers: {
+      Accept: "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      crossdomain: true
+    },
+  }).then(function (response) {
+    // console.log(response);
+    let array = [];
+    response.data.map((val, index) => {
+
+      let text = extractContent(val.author).replaceAll('\n', " ")
+      text = text.length > 30 ? text.substring(0, 30) : text;
+      let postedTime = moment().diff(moment(val.pubDate), 'minutes')
+
+      if (postedTime < 60) {
+        postedTime = postedTime + " mins ago"
+      } else if (postedTime < 1440) {
+        postedTime = Math.floor(postedTime / 60) + " hours ago"
+      } else if (postedTime < 43200) {
+        postedTime = Math.floor(postedTime / 1440) + " days ago"
+      } else if (postedTime < 518400) {
+        postedTime = Math.floor(postedTime / 43200) + " months ago"
+      } else {
+        postedTime = Math.floor(postedTime / 518400) + " years ago"
+      }
+
+      let blogImg = ["Blogger1.png", "Blogger2.jpg", "Blogger3.jpg", "Blogger4.jpg", "Blogger5.png", "Blogger6.png"]
+      let postimg = ["grill.png", "baking.jpg", "Marinate.png", "BakingSoda.png", "Bread.png", "Pan.png"]
+
+      array.push({
+        id: val.postID,
+        tags: val.tags,
+        postImg: postimg[index % 6],
+        title: val.title,
+        text: text,
+        posterIcon: blogImg[index % 6],
+        posterName: val.blog.user.fullName,
+        postDate: moment(val.pubDate).format("DD MMM YYYY"),
+        postPeriod: postedTime
+      })
+    })
+    // console.log(array);
+
+    return array.reverse();
+  }).catch(function (error) {
+    console.log(error);
+  });
+}
+
 class Landing extends React.Component {
-  state = {};
-  // componentDidMount() {
-  //   document.documentElement.scrollTop = 0;
-  //   document.scrollingElement.scrollTop = 0;
-  //   this.refs.main.scrollTop = 0;
-  // }
+
+  state = {
+    data: [],
+    pageNum: 1
+  };
+
+
+  changePage = (num, totalPageNum) => {
+    let tmpPageNum = 1;
+    if(num<0){
+      tmpPageNum = this.state.pageNum - 1 > 0 ? this.state.pageNum - 1 : 1
+    }else if(num == 0){
+      tmpPageNum = this.state.pageNum + 1 <= totalPageNum ? this.state.pageNum + 1 : totalPageNum
+    }else{
+      tmpPageNum = num
+    }
+    this.setState({
+      pageNum: tmpPageNum
+    })
+  }
+
+  componentDidMount() {
+    let data = getAllPost().then(res =>
+      this.setState({
+        data: res
+      })
+    );
+
+  }
 
   render() {
+    let totalPageNum = Math.ceil(this.state.data.length / 6)
+
     let postArray = [
       {
         id: 1,
@@ -77,7 +165,7 @@ class Landing extends React.Component {
         tags: ["Veganism", "Plant-Based Diet"],
         postImg: "BakingSoda.png",
         title: "How Baking Soda Really Works",
-        text: "The funny thing about baking soda is that there are approximately a gazillion uses for it besides the singular usage spelled out in its very name.",
+        text: "The funny thing about baking soda is that there are approximately a gazillion uses htmlFor it besides the singular usage spelled out in its very name.",
         posterIcon: "Blogger4.jpg",
         posterName: "Mark Smith",
         postDate: "11 November 2023",
@@ -119,9 +207,9 @@ class Landing extends React.Component {
           </section>
           <section className="pb-3 pt-3">
             <div className="container pb-5 pt-5">
-              <h2 class="h5 text-primary">Latest Articles</h2>
-              <h3 class="h1 text-dark">Feast of Flavors</h3>
-              <p class="lead mb-4">Welcome to Foodista! The Feast of Flavors and Culinary Adventure beyond the ordinary. We are a food blog
+              <h2 className="h5 text-primary">Latest Articles</h2>
+              <h3 className="h1 text-dark">Feast of Flavors</h3>
+              <p className="lead mb-4">Welcome to Foodista! The Feast of Flavors and Culinary Adventure beyond the ordinary. We are a food blog
                 where every recipe tells a story and every dish takes you on a journey. We explore the uncharted territories of taste,
                 bringing you a blend of classic favorites with a twist and exotic dishes from corners of the globe you've yet to discover.
               </p>
@@ -130,62 +218,80 @@ class Landing extends React.Component {
                   <div className="gy-4 mb-5 row">
                     {
                       (() => {
-                        let container = [];
-                        postArray.forEach((val, index) => {
-                          container.push(
-                            <div className="col-md-6">
-                              <div className="card h-100">
-                                {/* <Link to={`posts/${val.id}`} tag={Link}> */}
-                                <Link to={`blog`} tag={Link}   onClick={() => {window.scroll(0, 0);}}>
-                                  <a href="#" className="d-block">
-                                    <img src={require(`assets/img/content/pics/${val.postImg}`)} className="card-img-top img-fluid" alt="..." width="700" height="480" />
-                                  </a>
-                                </Link>
-                                <div className="card-body">
-                                  <div className="fw-bold mb-1 text-primary">
-                                    {
-                                      val.tags.map((tag, index) => {
-                                        let connectStr = index + 1 < val.tags.length ? ", " : "";
-                                        return (<a href="#" className="link-primary text-decoration-none">{tag + connectStr}</a>)
-                                      })
-                                    }
-                                  </div>
-                                  <a href="#" className="link-dark text-decoration-none">
-                                    <h3 class="card-title h4">{val.title}</h3>
-                                  </a>
-                                  <p className="card-text">
-                                    {val.text}
-                                  </p>
-                                </div>
-                                <div className="row align-items-center card-footer d-flex justify-content-between py-3 small">
-                                  <a href="#" className="align-items-center d-flex link-dark text-decoration-none">
-                                    <img src={require(`assets/img/content/pics/${val.posterIcon}`)} className="me-2 rounded-circle" width="48" height="48" alt="..." />
-                                    <div className="px-2">
-                                      <h4 class="h6 mb-0">{val.posterName}</h4>
-                                      <p class="mb-0 ">{val.postDate}</p>
+                        if (this.state.data.length > 0) {
+                          let container = [];
+                          let startItem = 0 + 6 * (this.state.pageNum - 1);
+                          let enditem = 6 + 6 * (this.state.pageNum - 1);
+                          enditem = enditem < this.state.data.length ? enditem : this.state.data.length;
+                          // console.log(startItem)
+                          // console.log(enditem)
+
+                          for (startItem; startItem < enditem; startItem++) {
+                            let val = this.state.data[startItem]
+                            container.push(
+                              <div className="col-md-6">
+                                <div className="card h-100">
+                                  {/* <Link to={`posts/${val.id}`} tag={Link}> */}
+                                  <Link to={`blog/${val.id}`} tag={Link} onClick={() => { window.scroll(0, 0); }}>
+                                    <span>
+                                      <img src={require(`assets/img/content/pics/${val.postImg}`)} className="card-img-top img-fluid" alt="..." width="700" height="480" />
+                                    </span>
+                                  </Link>
+                                  <div className="card-body">
+                                    <div className="fw-bold mb-1 text-primary">
+                                      {
+
+                                        val.tags != null ? val.tags.map((tag, index) => {
+                                          let connectStr = index + 1 < val.tags.length ? ", " : "";
+                                          return (<a href="#" className="link-primary text-decoration-none">{tag + connectStr}</a>)
+                                        }) : null
+                                      }
                                     </div>
-                                  </a>
-                                  <span>{val.postPeriod}</span>
+                                    <a href="#" className="link-dark text-decoration-none">
+                                      <h3 className="card-title h4">{val.title}</h3>
+                                    </a>
+                                    <p className="card-text">
+                                      {val.text}
+                                    </p>
+                                  </div>
+                                  <div className="row align-items-center card-footer d-flex justify-content-between py-3 small">
+                                    <a href="#" className="align-items-center d-flex link-dark text-decoration-none">
+                                      <img src={require(`assets/img/content/pics/${val.posterIcon}`)} className="me-2 rounded-circle" width="48" height="48" alt="..." />
+                                      <div className="px-2">
+                                        <h4 className="h6 mb-0">{val.posterName}</h4>
+                                        <p className="mb-0 ">{val.postDate}</p>
+                                      </div>
+                                    </a>
+                                    <span>{val.postPeriod}</span>
+                                  </div>
                                 </div>
-                              </div>
-                            </div>)
-                        });
-                        return container;
+                              </div>)
+                          };
+                          return container;
+                        }
                       })()
                     }
 
                   </div>
                   <nav aria-label="Blog navigation">
                     <ul className="justify-assets/content-center  pagination">
-                      <li className="mx-1 page-item"><a href="#" className="link-primary page-link">&#8592;</a>
+                      <li className="mx-1 page-item"><span href="#" className="link-primary page-link" onClick={(e) =>this.changePage(-1,totalPageNum)}>&#8592;</span>
                       </li>
-                      <li className="mx-1 page-item"><a href="#" className="link-primary page-link">1</a>
-                      </li>
-                      <li className="mx-1 page-item"><a href="#" className="link-primary page-link">2</a>
-                      </li>
-                      <li className="mx-1 page-item"><a href="#" className="link-primary page-link">3</a>
-                      </li>
-                      <li className="mx-1 page-item"><a href="#" className="link-primary page-link">&#8594;</a>
+                      {(() => {
+                        if (this.state.data.length > 0) {
+                          let container = [];
+                          for (let i = 0; i < totalPageNum; i++) {
+                            container.push(
+                              <li className="mx-1 page-item"><span className="link-primary page-link" onClick={(e) =>this.changePage(i+1,totalPageNum)}>{i+1}</span></li>
+                            )
+
+                          }
+                          return container;
+                        }
+                      })()
+
+                      }
+                      <li className="mx-1 page-item"><span href="#" className="link-primary page-link" onClick={(e) =>this.changePage(0,totalPageNum)}>&#8594;</span>
                       </li>
                     </ul>
                   </nav>
@@ -218,15 +324,15 @@ class Landing extends React.Component {
                     <form>
                       <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked />
-                        <label className="form-check-label" for="inlineRadio1">All</label>
+                        <label className="form-check-label" htmlFor="inlineRadio1">All</label>
                       </div>
                       <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option1" />
-                        <label className="form-check-label" for="inlineRadio1">Free</label>
+                        <label className="form-check-label" htmlFor="inlineRadio1">Free</label>
                       </div>
                       <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option2" />
-                        <label className="form-check-label" for="inlineRadio2">Premium</label>
+                        <label className="form-check-label" htmlFor="inlineRadio2">Premium</label>
                       </div>
                     </form>
                   </div>
@@ -236,15 +342,15 @@ class Landing extends React.Component {
                     <form>
                       <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio11" value="option1" checked />
-                        <label className="form-check-label" for="inlineRadio1">All</label>
+                        <label className="form-check-label" htmlFor="inlineRadio1">All</label>
                       </div>
                       <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio22" value="option1" />
-                        <label className="form-check-label" for="inlineRadio1">Article</label>
+                        <label className="form-check-label" htmlFor="inlineRadio1">Article</label>
                       </div>
                       <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio33" value="option2" />
-                        <label className="form-check-label" for="inlineRadio2">Recipe</label>
+                        <label className="form-check-label" htmlFor="inlineRadio2">Recipe</label>
                       </div>
                     </form>
                   </div>
@@ -336,7 +442,7 @@ class Landing extends React.Component {
               </div>
             </div>
           </section>
-          <section className="bg-primary text-center text-lg-start text-white">
+          {/* <section className="bg-primary text-center text-lg-start text-white">
             <svg viewBox="0 0 1440 185" preserveAspectRatio="none" fill="currentColor" version="1.1"
               xmlns="http://www.w3.org/2000/svg" className="bg-primary d-block text-white" width="100%" height="160">
               <path d="M 0 0 H 1440 V 60 C 1114 355 700 35 516 35 C 333 35 246 199 0 60 V 0 Z" />
@@ -890,11 +996,11 @@ class Landing extends React.Component {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
         </main>
         <footer className="bg-dark pt-5 text-white">
           <div className="container">
-            <div className="row">
+            {/* <div className="row">
               <div className="col-xl-4 me-auto py-3"><a href="#"
                 className="d-inline-block h2 mb-4 text-decoration-none text-uppercase text-white-50">PG
                 Agency&nbsp;</a>
@@ -945,7 +1051,7 @@ class Landing extends React.Component {
                 </ul>
               </div>
 
-            </div>
+            </div> */}
             <div className="pb-3 pt-3 text-center">
               <hr className="border-secondary mt-0" />
               <p className="mb-0">Copyright &copy; 2023</p>
