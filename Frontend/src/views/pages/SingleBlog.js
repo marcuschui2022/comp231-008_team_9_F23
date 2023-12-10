@@ -1,7 +1,8 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classnames from "classnames";
-
+import axios from 'axios';
+import moment from 'moment';
 // reactstrap components
 import {
   Badge,
@@ -26,16 +27,71 @@ import '../../assets/css/pages.css';
 import Navbar from "components/Navbars/Navbar.js";
 import { Link } from "react-router-dom";
 
+
+
+async function getPostByID(postID) {
+  return axios({
+    method: 'get',
+    url: 'http://localhost:8080/api/posts/' + postID,
+    headers: {
+      Accept: "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      crossdomain: true
+    },
+  }).then(function (response) {
+    // console.log(response);
+    let res = response.data
+
+    let postedTime = moment().diff(moment(res.pubDate), 'minutes')
+
+    if (postedTime < 60) {
+      postedTime = postedTime + " mins ago"
+    } else if (postedTime < 1440) {
+      postedTime = Math.floor(postedTime / 60) + " hours ago"
+    } else if (postedTime < 43200) {
+      postedTime = Math.floor(postedTime / 1440) + " days ago"
+    } else if (postedTime < 518400) {
+      postedTime = Math.floor(postedTime / 43200) + " months ago"
+    } else {
+      postedTime = Math.floor(postedTime / 518400) + " years ago"
+    }
+    let obj = {
+      id: postID,
+      tags: res.tags,
+      blogImg: "baking.jpg",
+      title: res.title,
+      text: res.author,
+      posterIcon: "Blogger2.jpg",
+      posterName: res.blog.user.fullName,
+      postDate: moment(res.pubDate).format("DD MMM YYYY"),
+      postPeriod: postedTime
+    }
+
+    return obj;
+  }).catch(function (error) {
+    console.log(error);
+  });
+}
+
+
 class SingleBlog extends React.Component {
-  state = {};
-  // componentDidMount() {
-  //   document.documentElement.scrollTop = 0;
-  //   document.scrollingElement.scrollTop = 0;
-  //   this.refs.main.scrollTop = 0;
-  // }
+  state = {
+    data: null
+  };
+
+  componentDidMount() {
+    let id = (window.location.pathname).split("/")[2]
+
+    let data = getPostByID(id).then(res => {
+      this.setState({
+        data: res
+      })
+    });
+  }
 
   render() {
-    let id = (window.location.pathname).split("/")[2] 
+    let id = (window.location.pathname).split("/")[2]
 
     let postArray = [
       {
@@ -192,9 +248,9 @@ class SingleBlog extends React.Component {
       }
     ];
 
-    id = id>0 && id<7 ? id : 1;
-    const content = postArray[id - 1]
-
+    // id = id>0 && id<7 ? id : 1;
+    const content = this.state.data
+    // const content = postArray[1]
     return (
       <>
         <Navbar className="" />
@@ -233,70 +289,85 @@ class SingleBlog extends React.Component {
               <div className="row">
 
                 <div className="col-lg-8 entries">
+                  {
+                    (() => {
 
-                  <article className="entry entry-single">
+                      if (content != null) {
 
-                    <div className="entry-img">
-                      <img src={require(`assets/img/content/pics/${content.blogImg}`)} alt="" className="img-fluid" />
-                    </div>
+                        return (<>
 
-                    <h2 className="entry-title">
-                      {content.title}
-                    </h2>
+                          <article className="entry entry-single">
 
-                    <div >
-                      <ul className="entry-meta">
-                        <li className="d-flex align-items-center pr-3"><i className="fa fa-user pr-1" /><a href="#">{content.posterName}</a></li>
-                        <li className="d-flex align-items-center pr-3"><i className="fa fa-clock-o pr-1" /> <a href="#"><time dateTime="2020-01-01">{content.postDate}</time></a></li>
-                        <li className="d-flex align-items-center pr-3"><i className="fa fa-commenting pr-1" /> <a href="#">12 Comments</a></li>
-                      </ul>
-                    </div>
+                            <div className="entry-img">
+                              <img src={require(`assets/img/content/pics/${content.blogImg}`)} alt="" className="img-fluid" />
+                            </div>
 
-                    <div className="entry-content">
-                      <div className="content" dangerouslySetInnerHTML={{ __html: content.text }}></div>
-                      {/* <img src={require(`assets/img/content/pics/BakingSoda.png`)} className="img-fluid" alt="" /> */}
+                            <h2 className="entry-title">
+                              {content.title}
+                            </h2>
 
+                            <div >
+                              <ul className="entry-meta">
+                                <li className="d-flex align-items-center pr-3"><i className="fa fa-user pr-1" /><a href="#">{content.posterName}</a></li>
+                                <li className="d-flex align-items-center pr-3"><i className="fa fa-clock-o pr-1" /> <a href="#"><time dateTime="2020-01-01">{content.postDate}</time></a></li>
+                                <li className="d-flex align-items-center pr-3"><i className="fa fa-commenting pr-1" /> <a href="#">1 Comments</a></li>
+                              </ul>
+                            </div>
 
-                    </div>
+                            <div className="entry-content">
+                              <div className="content" dangerouslySetInnerHTML={{ __html: content.text }}></div>
+                              {/* <img src={require(`assets/img/content/pics/BakingSoda.png`)} className="img-fluid" alt="" /> */}
+                            </div>
 
-                    <div className="d-flex entry-footer">
+                            <div className="d-flex entry-footer">
 
-                      {/* <i className="fa fa-folder-o pr-1"></i>
-                      <ul className="item pr-3">
-                        <li><a href="#">Business</a></li>
-                      </ul> */}
+                              {/* <i className="fa fa-folder-o pr-1"></i>
+                                <ul className="item pr-3">
+                                  <li><a href="#">Business</a></li>
+                                </ul> */}
 
-                      <i className="fa fa-tags pr-1"></i>
-                      <ul className="item">
-                        {
-                          (() => {
-                            let container = [];
-                            content.tags.map((val) => {
-                              console.log(val)
+                              <i className="fa fa-tags pr-1"></i>
+                              <ul className="item">
+                                {
+                                  (() => {
+                                    let container = [];
+                                    if (content.tags != null && content.tags.length > 0) {
+                                      content.tags.map((val) => {
+                                        // console.log(val)
 
-                              container.push(
-                                <li><a href="#">{val}</a></li>
-                              )
-                            })
+                                        container.push(
+                                          <li><a href="#">{val}</a></li>
+                                        )
+                                      })
+                                      // console.log(container)
+                                      return container;
+                                    }
 
-                            console.log(container)
-                            return container;
-                          })()
-                        }
-                      </ul>
-                    </div>
+                                  })()
+                                }
+                              </ul>
+                            </div>
 
-                  </article>
-
-                  <div className="mt-5 entry blog-author d-flex align-items-center">
-                    <img src={require(`assets/img/content/pics/${content.blogImg}`)} className="rounded-circle float-left" width="120" alt="" />
-                    <div className="pl-2">
-                      <h4>{content.posterName}</h4>
-                      {/* <p>
+                          </article>
+                          <div className="mt-5 entry blog-author d-flex align-items-center">
+                            <img src={require(`assets/img/content/pics/${content.blogImg}`)} className="rounded-circle float-left" width="120" alt="" />
+                            <div className="pl-2">
+                              <h4>{content.posterName}</h4>
+                              {/* <p>
                         Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.
                       </p> */}
-                    </div>
-                  </div>
+                            </div>
+                          </div>
+                        </>
+
+                        );
+                      }
+
+                    })()
+                  }
+
+
+
 
                   <div className="mt-5 blog-comments">
 

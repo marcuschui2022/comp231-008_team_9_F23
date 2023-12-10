@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 // JavaScript plugin that hides or shows a component based on your scroll
 import Headroom from "headroom.js";
 import 'assets/css/pages.css';
@@ -50,7 +50,7 @@ class HeaderNavbar extends React.Component {
 
   getUser = () => {
     var tmp  = localStorage.getItem('user');
-    console.log(tmp)
+    // console.log(tmp)
     if(tmp != null){
       return true
     }
@@ -58,16 +58,27 @@ class HeaderNavbar extends React.Component {
   }
 
   logout = () => {
+    this.setState({ redirectToHome: true });
+
     localStorage.removeItem('user');
-    window.location.reload(false);
+    ;
   }
 
 
   render() {
-
+    if ( this.state.redirectToHome) {
+      return <Navigate to="/" />;  // Redirect to the home page
+    }
     var button;
+    var userPostButton;
     if (this.getUser()) {
-      button = (<>
+      userPostButton = (
+        <Link to="/posted" tag={Link}>
+          <a className="nav-link px-lg-3 py-lg-4" href="#">Posted</a>
+        </Link>
+      )
+
+      button = (<div className="row">
         <div className="ms-lg-3">
           <Link to="/create" tag={Link}>
             <button className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Create</button>
@@ -77,9 +88,10 @@ class HeaderNavbar extends React.Component {
         <div className="ms-lg-3">
             <button  onClick={(e) => this.logout()} className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Logout</button>
         </div>
-      </>)
+      </div>)
     } else {
-      button = (<>
+      userPostButton = (<></>)
+      button = (<div className="row">
         <div className="ms-lg-3">
           <Link to="/register" tag={Link}>
             <button className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Register</button>
@@ -91,7 +103,7 @@ class HeaderNavbar extends React.Component {
             <button className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Login</button>
           </Link>
         </div>
-      </>)
+      </div>)
     }
     // if(!token) {
     //   // return <Login setToken={setToken} />
@@ -115,7 +127,7 @@ class HeaderNavbar extends React.Component {
               </Link>
 
 
-              <div className="collapse navbar-collapse " id="navbarNavDropdown-3">
+              <div className="collapse navbar-collapse d-flex justify-content-between" id="navbarNavDropdown-3">
                 <ul className="mb-2 mb-lg-0 ms-auto navbar-nav">
                   <li className="nav-item">
                     <Link to="/" tag={Link}>
@@ -123,19 +135,20 @@ class HeaderNavbar extends React.Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link px-lg-3 py-lg-4" href="#">Articles</a>
+                      <a className="nav-link px-lg-3 py-lg-4" href="#">Articles</a>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <a className="nav-link px-lg-3 py-lg-4" href="#">Bloggers</a>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link px-lg-3 py-lg-4" href="#">Videos</a>
-                  </li>
+                  </li>*/}
                   <li className="nav-item">
                     <a className="nav-link px-lg-3 py-lg-4" href="#">Recipes</a>
-                  </li>
-                  <li className="nav-item"><a className="nav-link px-lg-3 py-lg-4" href="#">Contact</a>
-                  </li>
+                  </li> 
+                  {/* <li className="nav-item"><a className="nav-link px-lg-3 py-lg-4" href="#">Contact</a>
+                  </li> */}
+                  {userPostButton}
                 </ul>
 
                 {button}

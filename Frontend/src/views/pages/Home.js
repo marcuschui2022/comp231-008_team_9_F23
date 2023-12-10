@@ -1,7 +1,9 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 // nodejs library that concatenates classes
 import classnames from "classnames";
+import axios from 'axios';
+import moment from 'moment';
 
 // reactstrap components
 import {
@@ -28,15 +30,102 @@ import Download from "../IndexSections/Download.js";
 import Navbar from "components/Navbars/Navbar.js";
 import { Link } from "react-router-dom";
 
+
+function extractContent(s) {
+  var span = document.createElement('span');
+  span.innerHTML = s;
+  return span.textContent || span.innerText;
+};
+
+
+async function getAllPost() {
+  return axios({
+    method: 'get',
+    url: 'http://localhost:8080/api/posts/',
+    headers: {
+      Accept: "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      crossdomain: true
+    },
+  }).then(function (response) {
+    // console.log(response);
+    let array = [];
+    response.data.map((val, index) => {
+
+      let text = extractContent(val.author).replaceAll('\n', " ")
+      text = text.length > 30 ? text.substring(0, 30) : text;
+      let postedTime = moment().diff(moment(val.pubDate), 'minutes')
+
+      if (postedTime < 60) {
+        postedTime = postedTime + " mins ago"
+      } else if (postedTime < 1440) {
+        postedTime = Math.floor(postedTime / 60) + " hours ago"
+      } else if (postedTime < 43200) {
+        postedTime = Math.floor(postedTime / 1440) + " days ago"
+      } else if (postedTime < 518400) {
+        postedTime = Math.floor(postedTime / 43200) + " months ago"
+      } else {
+        postedTime = Math.floor(postedTime / 518400) + " years ago"
+      }
+
+      let blogImg = ["Blogger1.png", "Blogger2.jpg", "Blogger3.jpg", "Blogger4.jpg", "Blogger5.png", "Blogger6.png"]
+      let postimg = ["grill.png", "baking.jpg", "Marinate.png", "BakingSoda.png", "Bread.png", "Pan.png"]
+
+      array.push({
+        id: val.postID,
+        tags: val.tags,
+        postImg: postimg[index % 6],
+        title: val.title,
+        text: text,
+        posterIcon: blogImg[index % 6],
+        posterName: val.blog.user.fullName,
+        postDate: moment(val.pubDate).format("DD MMM YYYY"),
+        postPeriod: postedTime
+      })
+    })
+    // console.log(array);
+
+    return array.reverse();
+  }).catch(function (error) {
+    console.log(error);
+  });
+}
+
 class Landing extends React.Component {
-  state = {};
-  // componentDidMount() {
-  //   document.documentElement.scrollTop = 0;
-  //   document.scrollingElement.scrollTop = 0;
-  //   this.refs.main.scrollTop = 0;
-  // }
+
+  state = {
+    data: [],
+    pageNum: 1
+  };
+
+
+  changePage = (num, totalPageNum) => {
+    let tmpPageNum = 1;
+    if(num<0){
+      tmpPageNum = this.state.pageNum - 1 > 0 ? this.state.pageNum - 1 : 1
+    }else if(num == 0){
+      tmpPageNum = this.state.pageNum + 1 <= totalPageNum ? this.state.pageNum + 1 : totalPageNum
+    }else{
+      tmpPageNum = num
+    }
+    this.setState({
+      pageNum: tmpPageNum
+    })
+  }
+
+  componentDidMount() {
+    let data = getAllPost().then(res =>
+      this.setState({
+        data: res
+      })
+    );
+
+  }
 
   render() {
+    let totalPageNum = Math.ceil(this.state.data.length / 6)
+
     let postArray = [
       {
         id: 1,
@@ -129,62 +218,80 @@ class Landing extends React.Component {
                   <div className="gy-4 mb-5 row">
                     {
                       (() => {
-                        let container = [];
-                        postArray.forEach((val, index) => {
-                          container.push(
-                            <div  className="col-md-6">
-                              <div className="card h-100">
-                                {/* <Link to={`posts/${val.id}`} tag={Link}> */}
-                                <Link to={`blog/${val.id}`} tag={Link}   onClick={() => {window.scroll(0, 0);}}>
-                                  <span>
-                                    <img src={require(`assets/img/content/pics/${val.postImg}`)} className="card-img-top img-fluid" alt="..." width="700" height="480" />
-                                  </span>
-                                </Link>
-                                <div className="card-body">
-                                  <div className="fw-bold mb-1 text-primary">
-                                    {
-                                      val.tags.map((tag, index) => {
-                                        let connectStr = index + 1 < val.tags.length ? ", " : "";
-                                        return (<a href="#"  className="link-primary text-decoration-none">{tag + connectStr}</a>)
-                                      })
-                                    }
-                                  </div>
-                                  <a href="#" className="link-dark text-decoration-none">
-                                    <h3 className="card-title h4">{val.title}</h3>
-                                  </a>
-                                  <p className="card-text">
-                                    {val.text}
-                                  </p>
-                                </div>
-                                <div className="row align-items-center card-footer d-flex justify-content-between py-3 small">
-                                  <a href="#" className="align-items-center d-flex link-dark text-decoration-none">
-                                    <img src={require(`assets/img/content/pics/${val.posterIcon}`)} className="me-2 rounded-circle" width="48" height="48" alt="..." />
-                                    <div className="px-2">
-                                      <h4 className="h6 mb-0">{val.posterName}</h4>
-                                      <p className="mb-0 ">{val.postDate}</p>
+                        if (this.state.data.length > 0) {
+                          let container = [];
+                          let startItem = 0 + 6 * (this.state.pageNum - 1);
+                          let enditem = 6 + 6 * (this.state.pageNum - 1);
+                          enditem = enditem < this.state.data.length ? enditem : this.state.data.length;
+                          // console.log(startItem)
+                          // console.log(enditem)
+
+                          for (startItem; startItem < enditem; startItem++) {
+                            let val = this.state.data[startItem]
+                            container.push(
+                              <div className="col-md-6">
+                                <div className="card h-100">
+                                  {/* <Link to={`posts/${val.id}`} tag={Link}> */}
+                                  <Link to={`blog/${val.id}`} tag={Link} onClick={() => { window.scroll(0, 0); }}>
+                                    <span>
+                                      <img src={require(`assets/img/content/pics/${val.postImg}`)} className="card-img-top img-fluid" alt="..." width="700" height="480" />
+                                    </span>
+                                  </Link>
+                                  <div className="card-body">
+                                    <div className="fw-bold mb-1 text-primary">
+                                      {
+
+                                        val.tags != null ? val.tags.map((tag, index) => {
+                                          let connectStr = index + 1 < val.tags.length ? ", " : "";
+                                          return (<a href="#" className="link-primary text-decoration-none">{tag + connectStr}</a>)
+                                        }) : null
+                                      }
                                     </div>
-                                  </a>
-                                  <span>{val.postPeriod}</span>
+                                    <a href="#" className="link-dark text-decoration-none">
+                                      <h3 className="card-title h4">{val.title}</h3>
+                                    </a>
+                                    <p className="card-text">
+                                      {val.text}
+                                    </p>
+                                  </div>
+                                  <div className="row align-items-center card-footer d-flex justify-content-between py-3 small">
+                                    <a href="#" className="align-items-center d-flex link-dark text-decoration-none">
+                                      <img src={require(`assets/img/content/pics/${val.posterIcon}`)} className="me-2 rounded-circle" width="48" height="48" alt="..." />
+                                      <div className="px-2">
+                                        <h4 className="h6 mb-0">{val.posterName}</h4>
+                                        <p className="mb-0 ">{val.postDate}</p>
+                                      </div>
+                                    </a>
+                                    <span>{val.postPeriod}</span>
+                                  </div>
                                 </div>
-                              </div>
-                            </div>)
-                        });
-                        return container;
+                              </div>)
+                          };
+                          return container;
+                        }
                       })()
                     }
 
                   </div>
                   <nav aria-label="Blog navigation">
                     <ul className="justify-assets/content-center  pagination">
-                      <li className="mx-1 page-item"><a href="#" className="link-primary page-link">&#8592;</a>
+                      <li className="mx-1 page-item"><span href="#" className="link-primary page-link" onClick={(e) =>this.changePage(-1,totalPageNum)}>&#8592;</span>
                       </li>
-                      <li className="mx-1 page-item"><a href="#" className="link-primary page-link">1</a>
-                      </li>
-                      <li className="mx-1 page-item"><a href="#" className="link-primary page-link">2</a>
-                      </li>
-                      <li className="mx-1 page-item"><a href="#" className="link-primary page-link">3</a>
-                      </li>
-                      <li className="mx-1 page-item"><a href="#" className="link-primary page-link">&#8594;</a>
+                      {(() => {
+                        if (this.state.data.length > 0) {
+                          let container = [];
+                          for (let i = 0; i < totalPageNum; i++) {
+                            container.push(
+                              <li className="mx-1 page-item"><span className="link-primary page-link" onClick={(e) =>this.changePage(i+1,totalPageNum)}>{i+1}</span></li>
+                            )
+
+                          }
+                          return container;
+                        }
+                      })()
+
+                      }
+                      <li className="mx-1 page-item"><span href="#" className="link-primary page-link" onClick={(e) =>this.changePage(0,totalPageNum)}>&#8594;</span>
                       </li>
                     </ul>
                   </nav>
