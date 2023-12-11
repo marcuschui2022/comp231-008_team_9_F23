@@ -69,8 +69,28 @@ async function getPostByID(postID) {
       title: res.title,
       text: res.author,
       classification: res.classification,
+      origin: res
     }
     return obj;
+  }).catch(function (error) {
+    console.log(error);
+  });
+}
+
+async function updatePost(data, postID) {
+  return axios({
+    method: 'put',
+    url: 'http://localhost:8080/api/posts/' + postID,
+    headers: {
+      Accept: "application/json",
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      crossdomain: true
+    },
+    data: data
+  }).then(function (response) {
+    console.log(response);
+    return response;
   }).catch(function (error) {
     console.log(error);
   });
@@ -80,8 +100,27 @@ async function getPostByID(postID) {
 class UpdatePost extends React.Component {
 
   state = {
-    data: null
+    data: null,
+    editorState: EditorState.createEmpty(),
+    title: "",
+    classification: ""
   };
+
+  async handleSubmit(e) {
+    e.preventDefault();
+    let id = (window.location.pathname).split("/")[2]
+
+    var tmpToken = this.state.data.origin;
+    tmpToken.title = this.state.title;
+    tmpToken.author = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
+    tmpToken.classification = this.state.classification;
+    console.log(tmpToken)
+    const token = await updatePost(tmpToken, id)
+    if (token) {
+      console.log('updatePost successful');
+      this.setState({ redirectToHome: true });
+    }
+  }
 
   componentDidMount() {
     let id = (window.location.pathname).split("/")[2]
@@ -95,23 +134,26 @@ class UpdatePost extends React.Component {
         contentBlocks,
         entityMap
       )
-       
 
       this.setState({
         data: res,
-
+        title: res.title,
+        classification: res.classification,
         editorState: EditorState.createWithContent(contentState)//EditorState.createWithContent()
-        
       })
     });
   }
 
   changeFormState = (attr, value) => {
+    console.log(attr)
+    console.log(value)
+
     this.setState({
       [attr]: value
     });
   };
 
+  
   onEditorStateChange = (editorState) => {
     this.setState({
       editorState
@@ -127,35 +169,6 @@ class UpdatePost extends React.Component {
     return false
   }
 
-  async handleSubmit(e) {
-    e.preventDefault();
-    var tmp = localStorage.getItem('user');
-    // const blogID = await getBlogID(JSON.parse(tmp), this.state.title)
-    // console.log(blogID)
-    // if (blogID) {
-    //   var tmpToken = {
-    //     title: this.state.title,
-    //     author: draftToHtml(convertToRaw(this.state.editorState.getCurrentContent())),
-    //     pubDate: toIsoString(new Date()),
-    //     category: "FREE",
-    //     classification: this.state.classification,
-    //     cookingType: null,
-    //     cookingStyle: null,
-    //     tags: null,
-    //   }
-    //   console.log(tmpToken)
-
-    //   const token = await creatPost(tmpToken, blogID);
-    //   if (token) {
-    //     console.log('creatPost successful');
-    //     this.setState({ redirectToHome: true });
-
-    //   }
-    // }
-    // // setToken(token);
-  }
-
-
   render() {
     const { editorState } = this.state;
 
@@ -169,9 +182,7 @@ class UpdatePost extends React.Component {
 
           {(() => {
             if (this.state.data != null) {
-              console.log(this.state.data)
-
-
+              // console.log(this.state)
               return (<><section>
                 <div className="container">
 
@@ -207,13 +218,13 @@ class UpdatePost extends React.Component {
                       <Form role="form">
 
                         <FormGroup className="mb-3">
-                          <InputGroup className="input-group-alternative"  onChange={input => this.changeFormState("title", input.target.value)}>
+                          <InputGroup className="input-group-alternative" onChange={input => this.changeFormState("title", input.target.value)}>
                             <InputGroupAddon addonType="prepend">
                               <InputGroupText  >
                                 {/* <i className="fa fa-user" /> */}
                               </InputGroupText>
                             </InputGroupAddon>
-                            <Input value={this.state.data.title} placeholder="Title" type="text" />
+                            <Input  defaultValue={this.state.title}  placeholder="Title" type="text" />
                           </InputGroup>
                         </FormGroup>
 
@@ -235,13 +246,14 @@ class UpdatePost extends React.Component {
                             name="select"
                             type="select"
                             placeholder="Role"
-                            value={this.state.data.classification}
+                            defaultValue={this.state.classification}
+                            disabled
                             onChange={input => this.changeFormState("classification", input.target.value)}
                           >
                             <option hidden>Please select Typle</option>
                             {/* <option value="ARTICLE">blog</option> */}
                             <option value="ARTICLE">Article</option>
-                            <option value="RECIPE">recipe</option>
+                            <option value="RECIPE">Recipe</option>
                           </Input>
                         </FormGroup>
 

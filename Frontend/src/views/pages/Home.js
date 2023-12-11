@@ -49,7 +49,7 @@ async function getAllPost() {
       crossdomain: true
     },
   }).then(function (response) {
-    // console.log(response);
+    console.log(response);
     let array = [];
     response.data.map((val, index) => {
 
