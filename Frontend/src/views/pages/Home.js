@@ -41,7 +41,7 @@ function extractContent(s) {
 async function getAllPost() {
   return axios({
     method: 'get',
-    url: 'http://localhost:8080/api/posts/',
+    url: 'https://comp231team9backend.azurewebsites.net/api/posts/',
     headers: {
       Accept: "application/json",
       'Access-Control-Allow-Origin': '*',

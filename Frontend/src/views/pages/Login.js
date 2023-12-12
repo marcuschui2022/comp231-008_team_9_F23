@@ -28,7 +28,7 @@ import { Link, Navigate } from "react-router-dom";
 async function loginUser(credentials) {
   return axios({
     method: 'post',
-    url: 'http://localhost:8080/api/users/login',
+    url: 'https://comp231team9backend.azurewebsites.net/api/users/login',
     headers: {
       Accept: "application/json",
       'Access-Control-Allow-Origin': '*',

@@ -35,7 +35,7 @@ import { Link, Navigate } from "react-router-dom";
 async function creatPost(credentials, blogId) {
   return axios({
     method: 'post',
-    url: 'http://localhost:8080/api/posts/user/' + blogId,
+    url: 'https://comp231team9backend.azurewebsites.net/api/posts/user/' + blogId,
     headers: {
       Accept: "application/json",
       'Access-Control-Allow-Origin': '*',
@@ -54,7 +54,7 @@ async function creatPost(credentials, blogId) {
 async function createBlog(user, title) {
   return axios({
     method: 'post',
-    url: 'http://localhost:8080/api/blogs/',
+    url: 'https://comp231team9backend.azurewebsites.net/api/blogs/',
     headers: {
       Accept: "application/json",
       'Access-Control-Allow-Origin': '*',
@@ -77,7 +77,7 @@ async function createBlog(user, title) {
 async function getBlogID(user, title) {
   return axios({
     method: 'get',
-    url: 'http://localhost:8080/api/blogs/user/' + user.userID,
+    url: 'https://comp231team9backend.azurewebsites.net/api/blogs/user/' + user.userID,
     headers: {
       Accept: "application/json",
       'Access-Control-Allow-Origin': '*',

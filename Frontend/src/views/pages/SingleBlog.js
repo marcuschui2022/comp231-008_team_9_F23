@@ -32,7 +32,7 @@ import { Link } from "react-router-dom";
 async function getPostByID(postID) {
   return axios({
     method: 'get',
-    url: 'http://localhost:8080/api/posts/' + postID,
+    url: 'https://comp231team9backend.azurewebsites.net/api/posts/' + postID,
     headers: {
       Accept: "application/json",
       'Access-Control-Allow-Origin': '*',

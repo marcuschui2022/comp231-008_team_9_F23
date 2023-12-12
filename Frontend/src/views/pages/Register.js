@@ -29,7 +29,7 @@ import { Link, Navigate } from "react-router-dom";
 async function RegisterUser(credentials) {
   return axios({
     method: 'post',
-    url: 'http://localhost:8080/api/users/',
+    url: 'https://comp231team9backend.azurewebsites.net/api/users/',
     headers: {
       Accept: "application/json",
       'Access-Control-Allow-Origin': '*',

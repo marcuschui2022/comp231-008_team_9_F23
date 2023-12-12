@@ -38,7 +38,7 @@ import { data } from "jquery";
 async function getPostByID(postID) {
   return axios({
     method: 'get',
-    url: 'http://localhost:8080/api/posts/' + postID,
+    url: 'https://comp231team9backend.azurewebsites.net/api/posts/' + postID,
     headers: {
       Accept: "application/json",
       'Access-Control-Allow-Origin': '*',
@@ -80,7 +80,7 @@ async function getPostByID(postID) {
 async function updatePost(data, postID) {
   return axios({
     method: 'put',
-    url: 'http://localhost:8080/api/posts/' + postID,
+    url: 'https://comp231team9backend.azurewebsites.net/api/posts/' + postID,
     headers: {
       Accept: "application/json",
       'Access-Control-Allow-Origin': '*',
